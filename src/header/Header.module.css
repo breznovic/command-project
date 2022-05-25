@@ -3,7 +3,7 @@
     display: flex;
     align-items: center;
     width: 100%;
-    background-color: dodgerblue;
+    background-color: #24ff48;
 }
 .pages {
     width: 500px;
@@ -13,12 +13,12 @@
     justify-content: space-between;
 }
 .item {
-    color: white;
+    color: #0015ff;
     font-size: large;
     text-decoration: none;
 }
 .active {
-    color: rgb(255, 217, 0);
+    color: rgb(255, 106, 0);
     text-decoration: none;
     font-size: large;
 }

@@ -11,17 +11,17 @@
     height: 20px;
     margin-right: 10px;
     background: rgba(27, 178, 255, 0.1);
-    border: 1px solid rgba(27, 178, 255, 0.4);
+    border: 1px solid rgb(36, 255, 72);
     border-radius: 5px;
 }
 
 .checkbox:checked {
     appearance: none;
-    background-image: url('image/checked.png');
+    background-image: url('image/checked.svg');
     background-repeat: no-repeat;
     background-size: cover;
 }
 
 .checkbox:focus {
-    outline: 2px solid rgb(36, 199, 255);
+    outline: 2px solid rgb(36, 255, 72);
 }

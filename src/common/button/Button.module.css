@@ -11,7 +11,7 @@
 }
 
 button {
-    --blue: rgb(36, 199, 255);
+    --blue: rgb(36, 255, 72);
     font-size: 14px;
     padding: 0.5em 2em;
     margin: 5px;
@@ -23,16 +23,16 @@ button {
     transition: all 0.3s;
     line-height: 1.2em;
     border: 2px solid var(--blue);
-    background: linear-gradient(to right, rgba(27, 178, 255, 0.1) 1%, transparent 40%, transparent 60%, rgba(27, 178, 255, 0.1) 100%);
+    background: linear-gradient(to right, rgba(27, 178, 255, 0.1) 1%, transparent 40%, transparent 60%, rgba(27, 255, 73, 0.1) 100%);
     color: var(--blue);
-    box-shadow: inset 0 0 10px rgba(27, 178, 255, 0.4), 0 0 9px 3px rgba(27, 178, 255, 0.1);
+    box-shadow: inset 0 0 10px rgba(84, 255, 27, 0.4), 0 0 9px 3px rgba(11, 38, 3, 0.1);
 }
 
 button:hover {
-    color: rgb(27, 178, 255);
-    box-shadow: inset 0 0 10px rgba(27, 178, 255, 0.6), 0 0 9px 3px rgba(27, 178, 255, 0.2);
+    color: rgb(92, 255, 27);
+    box-shadow: inset 0 0 10px rgb(36, 255, 72), 0 0 9px 3px rgba(27, 178, 255, 0.2);
     transition-duration: 1s;
-    background: rgba(54, 157, 218, 0.1);
+    background: rgb(92, 255, 27);
 }
 
 button:before {
@@ -43,7 +43,7 @@ button:before {
     height: 100%;
     top: 0;
     transition: transform .4s ease-in-out;
-    background: linear-gradient(to right, transparent 1%, rgba(27, 178, 255, 0.1) 40%, rgba(27, 178, 255, 0.1) 60%, transparent 100%);
+    background: linear-gradient(to right, transparent 1%, rgba(27, 178, 255, 0.1) 40%, rgba(84, 255, 27, 0.4) 60%, transparent 100%);
 }
 
 button:hover:before {
@@ -60,8 +60,8 @@ button:disabled {
     overflow: hidden;
     transition: all 0.3s;
     line-height: 1.2em;
-    border: 2px solid rgba(27, 178, 255, 0.4);
+    border: 2px solid rgb(36, 255, 72);
     background: linear-gradient(to right, rgba(27, 178, 255, 0.1) 1%, transparent 40%, transparent 60%, rgba(27, 178, 255, 0.1) 100%);
-    color: rgba(27, 178, 255, 0.2);
-    box-shadow: inset 0 0 10px rgba(27, 178, 255, 0.4), 0 0 9px 3px rgba(27, 178, 255, 0.1);
+    color: rgba(84, 255, 27, 0.4);
+    box-shadow: inset 0 0 10px rgba(84, 255, 27, 0.4), 0 0 9px 3px rgba(27, 178, 255, 0.1);
 }
