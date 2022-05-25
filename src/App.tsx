@@ -1,7 +1,7 @@
 import React from 'react';
 import s from './App.module.css';
-import Header from "../f2-ui/header/Header";
-import Pages from "../f2-ui/pages/Pages";
+import Header from "./header/Header";
+import Pages from "./pages/Pages";
 
 function App() {
     return (
