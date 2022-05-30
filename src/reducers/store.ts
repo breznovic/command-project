@@ -1,6 +1,6 @@
 import {applyMiddleware, combineReducers, legacy_createStore as createStore} from "redux";
 import thunk, {ThunkAction} from 'redux-thunk'
-import {authReducer, setLoggedInAC, SetLoggedInType} from "./auth-reducer";
+import {authReducer, SetInitializeType, setLoggedInAC, SetLoggedInType, SetRegisterInType} from "./auth-reducer";
 import {useDispatch} from "react-redux";
 
 
@@ -13,6 +13,6 @@ export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, AppStateType, 
 export type AppDispatch = typeof store.dispatch
 export const useAppDispatch = () => useDispatch<AppDispatch>()
 
-export type AppActionsType=SetLoggedInType
+export type AppActionsType=SetLoggedInType|SetRegisterInType|SetInitializeType
 export type AppStateType = ReturnType<typeof rootReducer>
 // export type AppActionsType

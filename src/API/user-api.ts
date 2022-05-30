@@ -4,12 +4,29 @@ import {instance} from "./instance";
 export const authApi={
     login(data:LoginParamsType){
         return instance.post<ResponseType>("auth/login",data)
+    },
+    register(data:RegisterParamsType){
+        return instance.post<RegisterResponseType>('auth/register',data)
+    },
+    me(){
+        return instance.post<ResponseType>('auth/me')
     }
 }
 
 
+export type RegisterResponseType={
+    addedUser: {
+         // не важные данные, просто для проверки
+    } // чтобы посмотреть как выглядит созданный юзер
 
+    error?: string;
+}
 
+export type RegisterParamsType={
+    email: string
+    password:string
+
+}
 
  export type LoginParamsType={
      email: string
