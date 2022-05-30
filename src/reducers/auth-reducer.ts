@@ -1,6 +1,10 @@
-import {Dispatch} from "react";
-import {authApi, LoginParamsType, RegisterParamsType,} from "../API/user-api";
+import {authApi, LoginParamsType, RegisterParamsType, RegisterResponseType,} from "../API/user-api";
 import {AppThunk} from "./store";
+
+import {setErrorAppAC, setStatusAppAC} from "./app-reducer";
+
+
+
 
 const initialState = {
     isLoggedIn: false,
@@ -21,8 +25,8 @@ export const authReducer = (state: InitialStateType = initialState, action: Gene
         case "register/SET-REGISTER-IN": {
             return {...state, isRegisterIn: action.isRegisterIn}
         }
-        case "login/SET-INITIALIZE-IN":{
-            return {...state,isInitializeIn: action.isInitializeIn}
+        case "login/SET-INITIALIZE-IN": {
+            return {...state, isInitializeIn: action.isInitializeIn}
         }
         default:
             return state
@@ -58,19 +62,33 @@ export const LoginTC = (data: LoginParamsType): AppThunk => (dispatch) => {
         .then((res) => {
             dispatch(setLoggedInAC(true))
         })
-        .catch(err => {
+        .catch(error => {
+            dispatch(setErrorAppAC(error))
+        })
 
+
+}
+export const LogOutTC = (): AppThunk => (dispatch) => {
+    authApi.logOut()
+        .then((res) => {
+            dispatch(setLoggedInAC(false))
+        })
+        .catch(error => {
+            dispatch(setErrorAppAC(error))
         })
 
 
 }
 export const RegisterTC = (data: RegisterParamsType): AppThunk => (dispatch) => {
+    dispatch(setStatusAppAC(false))
     authApi.register(data)
         .then((res) => {
+            dispatch(setStatusAppAC(true))
             dispatch(setRegisterInAC(true))
-        })
-        .catch(err => {
 
+        })
+        .catch(error => {
+            dispatch(setErrorAppAC(error))
         })
 
 
@@ -80,10 +98,10 @@ export const InitializeTC = (): AppThunk => (dispatch) => {
         .then((res) => {
             dispatch(setLoggedInAC(true))
         })
-        .catch(err => {
-
+        .catch(error => {
+            dispatch(setErrorAppAC(error))
         })
-        .finally(()=>{
+        .finally(() => {
             dispatch(setInitializeAC(true))
         })
 

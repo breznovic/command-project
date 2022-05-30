@@ -1,8 +1,11 @@
 import React from 'react';
 import {useFormik} from "formik";
-import {LoginTC} from "../../reducers/auth-reducer";
-import {useDispatch} from "react-redux";
+import {LoginTC, LogOutTC} from "../../reducers/auth-reducer";
+import {useDispatch, useSelector} from "react-redux";
 import Input from "../../common/input/Input";
+import Button from "../../common/button/Button";
+import {AppStateType} from "../../reducers/store";
+import {Navigate} from "react-router-dom";
 
 
 type FormikErrorType = {
@@ -12,6 +15,7 @@ type FormikErrorType = {
 }
 const Profile = () => {
     const dispatch = useDispatch<any>()
+    const  isLoggedIn=useSelector<AppStateType,boolean>(state=>state.auth.isLoggedIn)
     const formik = useFormik({
         initialValues: {
             email: '',
@@ -37,6 +41,14 @@ const Profile = () => {
             // formik.resetForm()
         },
     })
+
+    const logOutHandler=()=>{
+        dispatch(LogOutTC())
+    }
+    if(!isLoggedIn){
+        return <Navigate to={'/login'}/>
+    }
+
     return <form onSubmit={formik.handleSubmit}>
 
         <div>
@@ -59,8 +71,11 @@ const Profile = () => {
         {formik.touched.email &&
         formik.errors.email &&
         <div style={{color: 'red'}}>{formik.errors.email}</div>}
+<div>
 
+    <Button onClick={logOutHandler}>LogOut</Button>
 
+</div>
     </form>
 };
 

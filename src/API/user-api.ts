@@ -10,10 +10,17 @@ export const authApi={
     },
     me(){
         return instance.post<ResponseType>('auth/me')
+    },
+    logOut(){
+        return instance.delete<ResponseDeleteType>('auth/me')
     }
 }
 
+export type ResponseDeleteType={
+    info: string
 
+    error: string;
+}
 export type RegisterResponseType={
     addedUser: {
          // не важные данные, просто для проверки

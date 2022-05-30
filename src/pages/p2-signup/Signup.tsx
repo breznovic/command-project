@@ -6,6 +6,7 @@ import Button from "../../common/button/Button";
 import {useDispatch, useSelector} from "react-redux";
 import {AppStateType} from "../../reducers/store";
 import {Navigate} from "react-router-dom";
+import {ErrorSnackbar} from "../ErrorSnackBar/errorSnackBar";
 type FormikErrorType={
     email?:string
     password?:string
@@ -14,6 +15,7 @@ type FormikErrorType={
 const Signup = () => {
     const dispatch=useDispatch<any>()
     const isRegisterIn=useSelector<AppStateType,boolean>(state=>state.auth.isRegisterIn)
+
     const formik = useFormik({
         initialValues: {
             email: '',
@@ -46,7 +48,8 @@ const Signup = () => {
     if(isRegisterIn){
         return <Navigate to={'/login'}/>
     }
-    return <form onSubmit={formik.handleSubmit}>
+    return     <form onSubmit={formik.handleSubmit}>
+        < ErrorSnackbar/>
         <div>
 
             <Input
@@ -74,9 +77,9 @@ const Signup = () => {
             {...formik.getFieldProps(" confirmPassword")}
 
         />
-        {formik.touched.confirmPassword &&
-        formik.errors.confirmPassword &&
-        <div style={{color: 'red'}}>{formik.errors.confirmPassword}</div>}
+        {formik.touched.password &&
+        formik.errors.password &&
+        <div style={{color: 'red'}}>{formik.errors.password}</div>}
         <div>
         <Button >
             Register

@@ -4,6 +4,7 @@ import Header from "./header/Header";
 import Pages from "./pages/Pages";
 import {useDispatch} from "react-redux";
 import {InitializeTC} from "./reducers/auth-reducer";
+import { ErrorSnackbar } from './pages/ErrorSnackBar/errorSnackBar';
 
 function App() {
     const dispatch = useDispatch<any>()
@@ -12,6 +13,7 @@ function App() {
     }, [])
     return (
         <div className={s.app}>
+
             <Header/>
             <Pages/>
         </div>
