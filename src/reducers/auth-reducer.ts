@@ -1,21 +1,23 @@
-import {authApi, LoginParamsType, RegisterParamsType, RegisterResponseType,} from "../API/user-api";
+import {authApi, LoginParamsType, RegisterParamsType} from "../API/user-api";
 import {AppThunk} from "./store";
 
 import {setErrorAppAC, setStatusAppAC} from "./app-reducer";
 
 
-
-
 const initialState = {
     isLoggedIn: false,
     isRegisterIn: false,
-    isInitializeIn: false
+    isInitializeIn: false,
+    profile: {
+        email: '',
+
+    }
 }
 type InitialStateType = typeof initialState
 type GeneralType = SetLoggedInType
     | SetRegisterInType
     | SetInitializeType
-
+    | SetLoginDataAC
 
 export const authReducer = (state: InitialStateType = initialState, action: GeneralType): InitialStateType => {
     switch (action.type) {
@@ -27,6 +29,10 @@ export const authReducer = (state: InitialStateType = initialState, action: Gene
         }
         case "login/SET-INITIALIZE-IN": {
             return {...state, isInitializeIn: action.isInitializeIn}
+
+        }
+        case "login/SET-LOGIN-DATA": {
+            return {...state, profile: {...state.profile, email: action.email}}
         }
         default:
             return state
@@ -57,21 +63,37 @@ export const setRegisterInAC = (isRegisterIn: boolean) => {
     } as const
 }
 
+export type SetLoginDataAC = ReturnType<typeof setLoginDataAC>
+export const setLoginDataAC = (email: string) => {
+    return {
+        type: "login/SET-LOGIN-DATA",
+        email
+    } as const
+}
+
 export const LoginTC = (data: LoginParamsType): AppThunk => (dispatch) => {
+    dispatch(setStatusAppAC(false))
     authApi.login(data)
         .then((res) => {
             dispatch(setLoggedInAC(true))
+            dispatch(setLoginDataAC(res.data.email))
+            dispatch(setStatusAppAC(true))
         })
-        .catch(error => {
-            dispatch(setErrorAppAC(error))
+        .catch((e) => {
+            const error = e.response
+                ? e.response.data.error
+                : (e.message + ', more details in the console');
+            console.log('Error: ', {...e})
         })
 
 
 }
 export const LogOutTC = (): AppThunk => (dispatch) => {
+    dispatch(setStatusAppAC(false))
     authApi.logOut()
         .then((res) => {
             dispatch(setLoggedInAC(false))
+            dispatch(setStatusAppAC(true))
         })
         .catch(error => {
             dispatch(setErrorAppAC(error))
@@ -94,9 +116,11 @@ export const RegisterTC = (data: RegisterParamsType): AppThunk => (dispatch) => 
 
 }
 export const InitializeTC = (): AppThunk => (dispatch) => {
+    dispatch(setStatusAppAC(false))
     authApi.me()
         .then((res) => {
             dispatch(setLoggedInAC(true))
+            dispatch(setStatusAppAC(true))
         })
         .catch(error => {
             dispatch(setErrorAppAC(error))

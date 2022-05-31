@@ -8,6 +8,9 @@ import NewPassword from "./p4-new-password/NewPassword";
 import ResetPassword from "./p5-reset/ResetPassword";
 import Error404 from "./p6-error/404";
 import s from './Pages.module.css'
+import CircularProgress from "@mui/material/CircularProgress";
+import {useSelector} from "react-redux";
+import {AppStateType} from "../reducers/store";
 
 export const PATH = {
     login: 'login',
@@ -20,8 +23,10 @@ export const PATH = {
 }
 
 const Pages = () => {
+
     return (
         <div className={s.pagesContainer}>
+
             <Routes>
                 <Route path={'/'} element={<Test/>}/>
                 <Route path={PATH.login} element={<Login/>}/>

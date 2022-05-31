@@ -1,59 +1,70 @@
 import {instance} from "./instance";
 
 
-export const authApi={
-    login(data:LoginParamsType){
-        return instance.post<ResponseType>("auth/login",data)
+export const authApi = {
+    login(data: LoginParamsType) {
+        return instance.post<ResponseType>("auth/login", data)
     },
-    register(data:RegisterParamsType){
-        return instance.post<RegisterResponseType>('auth/register',data)
+    register(data: RegisterParamsType) {
+        return instance.post<RegisterResponseType>('auth/register', data)
     },
-    me(){
+    me() {
         return instance.post<ResponseType>('auth/me')
     },
-    logOut(){
+    logOut() {
         return instance.delete<ResponseDeleteType>('auth/me')
+    },
+    repairLogin(data:RepairLoginType) {
+        return instance.post<ResponseDeleteType>('auth/forgot',data)
     }
 }
 
-export type ResponseDeleteType={
+
+export type RepairLoginType = {
+    email: string
+    from: string
+    message: string
+}
+
+
+export type ResponseDeleteType = {
     info: string
 
     error: string;
 }
-export type RegisterResponseType={
+export type RegisterResponseType = {
     addedUser: {
-         // не важные данные, просто для проверки
+        // не важные данные, просто для проверки
     } // чтобы посмотреть как выглядит созданный юзер
 
     error?: string;
 }
 
-export type RegisterParamsType={
+export type RegisterParamsType = {
     email: string
-    password:string
+    password: string
 
 }
 
- export type LoginParamsType={
-     email: string
-     password:string
-     rememberMe: boolean
- }
+export type LoginParamsType = {
+    email: string
+    password: string
+    rememberMe: boolean
+}
 
- export type ResponseType<D={}>={
-     _id: string;
-     email: string;
-     name: string;
-     avatar?: string;
-     publicCardPacksCount: number;
+export type ResponseType<D = {}> = {
+    _id: string;
+    email: string;
+    name: string;
+    avatar?: string;
+    publicCardPacksCount: number;
 // количество колод
 
-     created: D;
-     updated: D;
-     isAdmin: boolean;
-     verified: boolean; // подтвердил ли почту
-     rememberMe: boolean;
+    created: D;
+    updated: D;
+    isAdmin: boolean;
+    verified: boolean; // подтвердил ли почту
+    rememberMe: boolean;
 
-     error?: string;
- }
+    error?: string;
+}

@@ -6,13 +6,15 @@ import Button from "../../common/button/Button";
 import {useDispatch, useSelector} from "react-redux";
 import {AppStateType} from "../../reducers/store";
 import {Navigate} from "react-router-dom";
-import {ErrorSnackbar} from "../ErrorSnackBar/errorSnackBar";
+import CircularProgress from "@mui/material/CircularProgress";
+
 type FormikErrorType={
     email?:string
     password?:string
     confirmPassword?:string
 }
 const Signup = () => {
+
     const dispatch=useDispatch<any>()
     const isRegisterIn=useSelector<AppStateType,boolean>(state=>state.auth.isRegisterIn)
 
@@ -49,7 +51,7 @@ const Signup = () => {
         return <Navigate to={'/login'}/>
     }
     return     <form onSubmit={formik.handleSubmit}>
-        < ErrorSnackbar/>
+
         <div>
 
             <Input
@@ -92,3 +94,4 @@ const Signup = () => {
 };
 
 export default Signup;
+

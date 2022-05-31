@@ -16,26 +16,13 @@ type FormikErrorType = {
 const Profile = () => {
     const dispatch = useDispatch<any>()
     const  isLoggedIn=useSelector<AppStateType,boolean>(state=>state.auth.isLoggedIn)
+    const email=useSelector<AppStateType,string>(state=>state.auth.profile.email)
     const formik = useFormik({
         initialValues: {
-            email: '',
-            nickName: ''
+            email: email,
+            nickName: email
         },
-        validate: (values) => {
-            const errors: FormikErrorType = {};
-            if (!values.email) {
-                errors.email = 'Required';
-            } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
-                errors.email = 'Invalid email address';
-            }
-            if (!values.nickName) {
-                errors.nickName = "Password must not be a null"
-            } else if (values.nickName.length < 4) {
-                errors.email = 'To small password';
-            }
-            return errors;
 
-        },
         onSubmit: values => {
             // dispatch(LoginTC(values));
             // formik.resetForm()
@@ -58,9 +45,7 @@ const Profile = () => {
                    {...formik.getFieldProps("nickName")}
 
             />
-            {formik.touched.nickName &&
-            formik.errors.nickName &&
-            <div style={{color: 'red'}}>{formik.errors.nickName}</div>}
+
         </div>
         <Input
             placeholder={'email'}
@@ -68,9 +53,7 @@ const Profile = () => {
 
 
         />
-        {formik.touched.email &&
-        formik.errors.email &&
-        <div style={{color: 'red'}}>{formik.errors.email}</div>}
+
 <div>
 
     <Button onClick={logOutHandler}>LogOut</Button>
