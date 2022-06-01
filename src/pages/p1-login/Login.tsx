@@ -8,6 +8,7 @@ import {AppStateType, AppThunk, useAppDispatch} from "../../reducers/store";
 import {AnyAction} from 'redux';
 import {Navigate} from "react-router-dom";
 import Input from "../../common/input/Input";
+import {ErrorSnackbar} from "../ErrorSnackBar/errorSnackBar";
 
 type FormikErrorType={
     email?:string
@@ -18,6 +19,7 @@ type FormikErrorType={
 const Login = () => {
     const dispatch= useAppDispatch()
     const isLoggedIn=useSelector<AppStateType,boolean>(state=>state.auth.isLoggedIn)
+
     const formik = useFormik({
         initialValues: {
             email: '',
@@ -81,6 +83,7 @@ if( isLoggedIn){
         </Button>
 
     </form>
+
 };
 
 export default Login;

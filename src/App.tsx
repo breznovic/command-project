@@ -6,11 +6,12 @@ import {useDispatch, useSelector} from "react-redux";
 import {InitializeTC} from "./reducers/auth-reducer";
 import CircularProgress from '@mui/material/CircularProgress'
 import {AppStateType} from "./reducers/store";
+import {ErrorSnackbar} from "./pages/ErrorSnackBar/errorSnackBar";
 
 function App() {
     const dispatch = useDispatch<any>()
     const isInitializeIn=useSelector<AppStateType,boolean>(state=>state.auth.isInitializeIn)
-    const status=useSelector<AppStateType,boolean>(state=>state.app.status)
+
     useEffect(() => {
         dispatch(InitializeTC())
     }, [])
@@ -28,6 +29,7 @@ function App() {
 
             <Header/>
             <Pages/>
+
         </div>
 
     );

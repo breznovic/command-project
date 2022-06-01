@@ -109,6 +109,7 @@ export const setLoginDataAC = (profile: ProfileType) => {
 }
 
 export const LoginTC = (data: LoginParamsType): AppThunk => (dispatch) => {
+   debugger
     dispatch(setStatusAppAC(false))
     authApi.login(data)
         .then((res) => {
@@ -133,12 +134,13 @@ export const LogOutTC = (): AppThunk => (dispatch) => {
             dispatch(setStatusAppAC(true))
         })
         .catch(error => {
-            dispatch(setErrorAppAC(error))
+            dispatch(setErrorAppAC(error.message))
         })
 
 
 }
 export const RegisterTC = (data: RegisterParamsType): AppThunk => (dispatch) => {
+
     dispatch(setStatusAppAC(false))
     authApi.register(data)
         .then((res) => {
@@ -147,7 +149,7 @@ export const RegisterTC = (data: RegisterParamsType): AppThunk => (dispatch) => 
 
         })
         .catch(error => {
-            dispatch(setErrorAppAC(error.message))
+            dispatch(setErrorAppAC("email already exists /ᐠ｡ꞈ｡ᐟ"))
         })
 
 
