@@ -1,6 +1,6 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {useFormik} from "formik";
-import {LoginTC, LogOutTC} from "../../reducers/auth-reducer";
+import {InitializeTC, LoginTC, LogOutTC} from "../../reducers/auth-reducer";
 import {useDispatch, useSelector} from "react-redux";
 import Input from "../../common/input/Input";
 import Button from "../../common/button/Button";
@@ -8,31 +8,32 @@ import {AppStateType} from "../../reducers/store";
 import {Navigate} from "react-router-dom";
 
 
-type FormikErrorType = {
-    email?: string
-    nickName?: string
 
-}
 const Profile = () => {
     const dispatch = useDispatch<any>()
-    const  isLoggedIn=useSelector<AppStateType,boolean>(state=>state.auth.isLoggedIn)
-    const email=useSelector<AppStateType,string>(state=>state.auth.profile.email)
+    const isLoggedIn = useSelector<AppStateType, boolean>(state => state.auth.isLoggedIn)
+    const profile = useSelector<AppStateType, string>(state => state.auth.profile.email)
+    const profile2 = useSelector<AppStateType, string>(state => state.auth.profile.name)
+
+    useEffect(()=>{
+if(isLoggedIn)
+        dispatch(InitializeTC)
+    },[])
+
     const formik = useFormik({
         initialValues: {
-            email: email,
-            nickName: email
+            email: profile,
+            nickName: profile2
         },
 
         onSubmit: values => {
-            // dispatch(LoginTC(values));
-            // formik.resetForm()
+            dispatch(LogOutTC());
+            formik.resetForm()
         },
     })
 
-    const logOutHandler=()=>{
-        dispatch(LogOutTC())
-    }
-    if(!isLoggedIn){
+
+    if (!isLoggedIn) {
         return <Navigate to={'/login'}/>
     }
 
@@ -54,11 +55,11 @@ const Profile = () => {
 
         />
 
-<div>
+        <div>
 
-    <Button onClick={logOutHandler}>LogOut</Button>
+            <Button >LogOut</Button>
 
-</div>
+        </div>
     </form>
 };
 

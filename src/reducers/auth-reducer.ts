@@ -10,6 +10,7 @@ const initialState = {
     isInitializeIn: false,
     profile: {
         email: '',
+        name:''
 
     }
 }
@@ -32,7 +33,7 @@ export const authReducer = (state: InitialStateType = initialState, action: Gene
 
         }
         case "login/SET-LOGIN-DATA": {
-            return {...state, profile: {...state.profile, email: action.email}}
+            return {...state, profile: {...state.profile, email: action.email,name:action.name}}
         }
         default:
             return state
@@ -64,19 +65,30 @@ export const setRegisterInAC = (isRegisterIn: boolean) => {
 }
 
 export type SetLoginDataAC = ReturnType<typeof setLoginDataAC>
-export const setLoginDataAC = (email: string) => {
+export const setLoginDataAC = (email: string,name:string) => {
     return {
         type: "login/SET-LOGIN-DATA",
-        email
+                   email,
+            name
+
     } as const
 }
+
+
+
+
+
+
+
+
+
 
 export const LoginTC = (data: LoginParamsType): AppThunk => (dispatch) => {
     dispatch(setStatusAppAC(false))
     authApi.login(data)
         .then((res) => {
             dispatch(setLoggedInAC(true))
-            dispatch(setLoginDataAC(res.data.email))
+            dispatch(setLoginDataAC(res.data.email,res.data.name))
             dispatch(setStatusAppAC(true))
         })
         .catch((e) => {
@@ -110,7 +122,7 @@ export const RegisterTC = (data: RegisterParamsType): AppThunk => (dispatch) => 
 
         })
         .catch(error => {
-            dispatch(setErrorAppAC(error))
+            dispatch(setErrorAppAC(error.message))
         })
 
 

@@ -14,13 +14,13 @@ export const authApi = {
     logOut() {
         return instance.delete<ResponseDeleteType>('auth/me')
     },
-    repairLogin(data:RepairLoginType) {
+    forgotLogin(data:ForgotLoginType) {
         return instance.post<ResponseDeleteType>('auth/forgot',data)
     }
 }
 
 
-export type RepairLoginType = {
+export type ForgotLoginType = {
     email: string
     from: string
     message: string
