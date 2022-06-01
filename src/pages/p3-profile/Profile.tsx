@@ -4,13 +4,13 @@ import {InitializeTC, LoginTC, LogOutTC} from "../../reducers/auth-reducer";
 import {useDispatch, useSelector} from "react-redux";
 import Input from "../../common/input/Input";
 import Button from "../../common/button/Button";
-import {AppStateType} from "../../reducers/store";
+import {AppStateType, useAppDispatch} from "../../reducers/store";
 import {Navigate} from "react-router-dom";
 
 
 
 const Profile = () => {
-    const dispatch = useDispatch<any>()
+    const dispatch =useAppDispatch()
     const isLoggedIn = useSelector<AppStateType, boolean>(state => state.auth.isLoggedIn)
     const profile = useSelector<AppStateType, string>(state => state.auth.profile.email)
     const profile2 = useSelector<AppStateType, string>(state => state.auth.profile.name)

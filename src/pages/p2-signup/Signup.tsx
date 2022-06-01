@@ -4,7 +4,7 @@ import { RegisterTC} from "../../reducers/auth-reducer";
 import Input from "../../common/input/Input";
 import Button from "../../common/button/Button";
 import {useDispatch, useSelector} from "react-redux";
-import {AppStateType} from "../../reducers/store";
+import {AppStateType, useAppDispatch} from "../../reducers/store";
 import {Navigate} from "react-router-dom";
 import CircularProgress from "@mui/material/CircularProgress";
 
@@ -15,7 +15,7 @@ type FormikErrorType={
 }
 const Signup = () => {
 
-    const dispatch=useDispatch<any>()
+    const dispatch=useAppDispatch()
     const isRegisterIn=useSelector<AppStateType,boolean>(state=>state.auth.isRegisterIn)
     const err=useSelector<AppStateType,string>(state=>state.app.errorApp)
 
