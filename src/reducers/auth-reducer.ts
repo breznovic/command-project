@@ -3,22 +3,55 @@ import {AppThunk} from "./store";
 
 import {setErrorAppAC, setStatusAppAC} from "./app-reducer";
 
+export type ProfileType = {
+    _id: string,
+    email: string,
+    name: string,
+    avatar?: string,
+    publicCardPacksCount: number,
+// количество колод
+
+    created: Date,
+    updated: Date,
+    isAdmin: boolean,
+    verified: boolean, // подтвердил ли почту
+    rememberMe: boolean,
+
+    error?: string
+}
 
 const initialState = {
     isLoggedIn: false,
     isRegisterIn: false,
     isInitializeIn: false,
     profile: {
-        email: '',
-        name:''
+        _id: "",
+        email: "",
+        name: "",
+        avatar: '',
+        publicCardPacksCount: 0,
+// количество колод
+
+        created: new Date(),
+        updated: new Date(),
+        isAdmin: false,
+        verified: false, // подтвердил ли почту
+        rememberMe: false,
+
+        error: ''
 
     }
 }
-type InitialStateType = typeof initialState
+type InitialStateType = {
+    isLoggedIn: boolean,
+    isRegisterIn: boolean,
+    isInitializeIn: boolean,
+    profile: ProfileType
+}
 type GeneralType = SetLoggedInType
     | SetRegisterInType
     | SetInitializeType
-    | SetLoginDataAC
+    | SetLoginDataACType
 
 export const authReducer = (state: InitialStateType = initialState, action: GeneralType): InitialStateType => {
     switch (action.type) {
@@ -33,7 +66,7 @@ export const authReducer = (state: InitialStateType = initialState, action: Gene
 
         }
         case "login/SET-LOGIN-DATA": {
-            return {...state, profile: {...state.profile, email: action.email,name:action.name}}
+            return {...state, profile: action.profile}
         }
         default:
             return state
@@ -64,31 +97,23 @@ export const setRegisterInAC = (isRegisterIn: boolean) => {
     } as const
 }
 
-export type SetLoginDataAC = ReturnType<typeof setLoginDataAC>
-export const setLoginDataAC = (email: string,name:string) => {
+export type SetLoginDataACType = ReturnType<typeof setLoginDataAC>
+export const setLoginDataAC = (profile: ProfileType) => {
     return {
         type: "login/SET-LOGIN-DATA",
-                   email,
-            name
+
+        profile
+
 
     } as const
 }
-
-
-
-
-
-
-
-
-
 
 export const LoginTC = (data: LoginParamsType): AppThunk => (dispatch) => {
     dispatch(setStatusAppAC(false))
     authApi.login(data)
         .then((res) => {
             dispatch(setLoggedInAC(true))
-            dispatch(setLoginDataAC(res.data.email,res.data.name))
+            dispatch(setLoginDataAC(res.data))
             dispatch(setStatusAppAC(true))
         })
         .catch((e) => {

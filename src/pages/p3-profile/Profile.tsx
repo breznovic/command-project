@@ -8,22 +8,23 @@ import {AppStateType, useAppDispatch} from "../../reducers/store";
 import {Navigate} from "react-router-dom";
 
 
-
 const Profile = () => {
-    const dispatch =useAppDispatch()
+    const dispatch = useAppDispatch()
     const isLoggedIn = useSelector<AppStateType, boolean>(state => state.auth.isLoggedIn)
-    const profile = useSelector<AppStateType, string>(state => state.auth.profile.email)
-    const profile2 = useSelector<AppStateType, string>(state => state.auth.profile.name)
+    const name = useSelector<AppStateType, string>(state => state.auth.profile.name)
+    const email = useSelector<AppStateType, string>(state => state.auth.profile.email)
 
-    useEffect(()=>{
-if(isLoggedIn)
-        dispatch(InitializeTC)
-    },[])
+    useEffect(() => {
+        if (isLoggedIn)
+            dispatch(InitializeTC)
+    }, [])
+
 
     const formik = useFormik({
+
         initialValues: {
-            email: profile,
-            nickName: profile2
+            email: email,
+            nickName: name
         },
 
         onSubmit: values => {
@@ -57,7 +58,7 @@ if(isLoggedIn)
 
         <div>
 
-            <Button >LogOut</Button>
+            <Button>LogOut</Button>
 
         </div>
     </form>

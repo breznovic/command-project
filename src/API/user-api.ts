@@ -52,7 +52,7 @@ export type LoginParamsType = {
     rememberMe: boolean
 }
 
-export type ResponseType<D = {}> = {
+export type ResponseType = {
     _id: string;
     email: string;
     name: string;
@@ -60,8 +60,8 @@ export type ResponseType<D = {}> = {
     publicCardPacksCount: number;
 // количество колод
 
-    created: D;
-    updated: D;
+    created: Date;
+    updated: Date;
     isAdmin: boolean;
     verified: boolean; // подтвердил ли почту
     rememberMe: boolean;
