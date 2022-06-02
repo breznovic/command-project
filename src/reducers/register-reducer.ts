@@ -1,5 +1,6 @@
 import {Dispatch} from "redux";
 import {RegisterArgsType, UserAPI} from "../API/user-api";
+import {handleServerNetworkError} from "../error/error";
 
 const initialState = {
     isRegisterIn: false
@@ -21,6 +22,9 @@ export const registerTC = (data: RegisterArgsType) => (dispatch: Dispatch) => {
     UserAPI.register(data)
         .then((res) => {
             dispatch(setIsRegisterInAC(true))
+        })
+        .catch(error => {
+            handleServerNetworkError(error.response.data.error, dispatch)
         })
 }
 //types
