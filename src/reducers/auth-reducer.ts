@@ -1,5 +1,6 @@
 import {LoginArgsType, UserAPI} from "../API/user-api";
 import {Dispatch} from "redux";
+import {handleServerNetworkError} from "../error/error";
 
 const initialState = {
     isLoggedIn: false
@@ -23,6 +24,10 @@ export const loginTC = (data: LoginArgsType) => (dispatch: Dispatch) => {
     UserAPI.login(data)
         .then(() => {
             dispatch(setIsLoggedInAC(true))
+        })
+        .catch(error => {
+            handleServerNetworkError(error.response.data.error, dispatch)
+            dispatch(setIsLoggedInAC(false))
         })
 }
 
