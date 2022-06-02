@@ -1,7 +1,10 @@
-import {authApi, LoginParamsType, RegisterParamsType} from "../API/user-api";
+import {authApi, LoginParamsType, RegisterParamsType, UpdateMeType} from "../API/user-api";
 import {AppThunk} from "./store";
 
 import {setErrorAppAC, setStatusAppAC} from "./app-reducer";
+import {Simulate} from "react-dom/test-utils";
+import error = Simulate.error;
+import {handleServerError} from "../error-utils/error";
 
 export type ProfileType = {
     _id: string,
@@ -52,6 +55,7 @@ type GeneralType = SetLoggedInType
     | SetRegisterInType
     | SetInitializeType
     | SetLoginDataACType
+    | UpdateUserParamsType
 
 export const authReducer = (state: InitialStateType = initialState, action: GeneralType): InitialStateType => {
     switch (action.type) {
@@ -67,6 +71,9 @@ export const authReducer = (state: InitialStateType = initialState, action: Gene
         }
         case "login/SET-LOGIN-DATA": {
             return {...state, profile: action.profile}
+        }
+        case "login/UPDATE-USER-PARAMS":{
+            return {...state,profile:{...state.profile,name:action.name,avatar:action.avatar}}
         }
         default:
             return state
@@ -108,20 +115,31 @@ export const setLoginDataAC = (profile: ProfileType) => {
     } as const
 }
 
+
+export type UpdateUserParamsType = ReturnType<typeof updateUserParamsAC>
+export const updateUserParamsAC = (name: string, avatar: string) => {
+    return {
+        type: 'login/UPDATE-USER-PARAMS',
+        name,
+        avatar
+    }as const
+}
+
 export const LoginTC = (data: LoginParamsType): AppThunk => (dispatch) => {
-   debugger
-    dispatch(setStatusAppAC(false))
+
+    dispatch(setStatusAppAC(false)) //статус выполнения для крутилки
     authApi.login(data)
         .then((res) => {
-            dispatch(setLoggedInAC(true))
-            dispatch(setLoginDataAC(res.data))
-            dispatch(setStatusAppAC(true))
+            dispatch(setLoggedInAC(true)) // диспатчим actionCreator для логинизации
+            dispatch(setLoginDataAC(res.data))// данные пользователя
+            dispatch(setStatusAppAC(true))//status
         })
-        .catch((e) => {
-            const error = e.response
-                ? e.response.data.error
-                : (e.message + ', more details in the console');
-            console.log('Error: ', {...e})
+        .catch(err => {
+            handleServerError(err,dispatch)
+            // const error = e.response
+            //     ? e.response.data.error
+            //     : (e.message + ', more details in the console');
+            // console.log('Error: ', {...e})
         })
 
 
@@ -169,4 +187,16 @@ export const InitializeTC = (): AppThunk => (dispatch) => {
         })
 
 
+}
+
+
+export const UpdateUserTC = (data: UpdateMeType): AppThunk => (dispatch) => {
+    dispatch(setStatusAppAC(false))
+    authApi.updateMe(data)
+        .then((res) => {
+            dispatch( updateUserParamsAC(res.data.name,res.data.avatar))
+        })
+        .catch(error=>{
+            dispatch(setErrorAppAC(error.message))
+        })
 }

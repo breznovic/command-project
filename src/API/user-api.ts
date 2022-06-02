@@ -11,14 +11,26 @@ export const authApi = {
     me() {
         return instance.post<ResponseType>('auth/me')
     },
+    updateMe(data:UpdateMeType){
+        return instance.put<ResponseType<{avatar:string}>>('auth/me',data)
+    },
     logOut() {
         return instance.delete<ResponseDeleteType>('auth/me')
     },
     forgotLogin(data:ForgotLoginType) {
         return instance.post<ResponseDeleteType>('auth/forgot',data)
-    }
+    },
+
 }
 
+
+export type UpdateMeType={
+    name:string
+    avatar:string
+}
+// export type RedactMeResponseType={
+//     updatedUser:ResponseType
+// }
 
 export type ForgotLoginType = {
     email: string
@@ -52,11 +64,11 @@ export type LoginParamsType = {
     rememberMe: boolean
 }
 
-export type ResponseType = {
+export type ResponseType <D={}>= {
     _id: string;
     email: string;
     name: string;
-    avatar?: string;
+    avatar: string;
     publicCardPacksCount: number;
 // количество колод
 
