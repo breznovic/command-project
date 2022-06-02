@@ -1,6 +1,6 @@
 import {instance} from "./instance";
 
-export const UsersAPI = {
+export const UserAPI = {
     login(data: LoginArgsType) {
         return instance.post<ResponseUserType>(`/auth/login`, data)
             .then(res => res.data)
