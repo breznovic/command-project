@@ -27,7 +27,6 @@ export const loginTC = (data: LoginArgsType) => (dispatch: Dispatch) => {
         })
         .catch(error => {
             handleServerNetworkError(error.response.data.error, dispatch)
-            dispatch(setIsLoggedInAC(false))
         })
 }
 
