@@ -5,6 +5,9 @@ export const UserAPI = {
         return instance.post<ResponseUserType>(`/auth/login`, data)
             .then(res => res.data)
     },
+    register(data: RegisterArgsType) {
+        return instance.post<RegisterResponseType>(`/auth/register`, data)
+    },
 }
 
 
@@ -27,4 +30,18 @@ export type ResponseUserType = {
     verified: boolean // подтвердил ли почту
     rememberMe: boolean
     error?: string
+}
+
+export type RegisterResponseType = {
+    addedUser: {
+        // не важные данные, просто для проверки
+    } // чтобы посмотреть как выглядит созданный юзер
+
+    error?: string;
+}
+
+export type RegisterArgsType = {
+    email: string
+    password: string
+
 }
