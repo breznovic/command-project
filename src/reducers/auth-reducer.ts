@@ -151,8 +151,8 @@ export const LogOutTC = (): AppThunk => (dispatch) => {
             dispatch(setLoggedInAC(false))
             dispatch(setStatusAppAC(true))
         })
-        .catch(error => {
-            dispatch(setErrorAppAC(error.message))
+        .catch(err => {
+            handleServerError(err,dispatch)
         })
 
 
@@ -166,8 +166,8 @@ export const RegisterTC = (data: RegisterParamsType): AppThunk => (dispatch) => 
             dispatch(setRegisterInAC(true))
 
         })
-        .catch(error => {
-            dispatch(setErrorAppAC("email already exists /ᐠ｡ꞈ｡ᐟ"))
+        .catch(err => {
+            handleServerError(err,dispatch)
         })
 
 
@@ -179,8 +179,8 @@ export const InitializeTC = (): AppThunk => (dispatch) => {
             dispatch(setLoggedInAC(true))
             dispatch(setStatusAppAC(true))
         })
-        .catch(error => {
-            dispatch(setErrorAppAC(error))
+        .catch(err => {
+            handleServerError(err,dispatch)
         })
         .finally(() => {
             dispatch(setInitializeAC(true))
@@ -196,7 +196,7 @@ export const UpdateUserTC = (data: UpdateMeType): AppThunk => (dispatch) => {
         .then((res) => {
             dispatch( updateUserParamsAC(res.data.name,res.data.avatar))
         })
-        .catch(error=>{
-            dispatch(setErrorAppAC(error.message))
+        .catch(err=>{
+            handleServerError(err,dispatch)
         })
 }
