@@ -2,8 +2,8 @@ import {authApi, LoginParamsType, RegisterParamsType, UpdateMeType} from "../API
 import {AppThunk} from "./store";
 
 import {setErrorAppAC, setStatusAppAC} from "./app-reducer";
-import {Simulate} from "react-dom/test-utils";
-import error = Simulate.error;
+
+
 import {handleServerError} from "../error-utils/error";
 
 export type ProfileType = {
@@ -126,7 +126,7 @@ export const updateUserParamsAC = (name: string, avatar: string) => {
 }
 
 export const LoginTC = (data: LoginParamsType): AppThunk => (dispatch) => {
-
+debugger
     dispatch(setStatusAppAC(false)) //статус выполнения для крутилки
     authApi.login(data)
         .then((res) => {
@@ -135,7 +135,9 @@ export const LoginTC = (data: LoginParamsType): AppThunk => (dispatch) => {
             dispatch(setStatusAppAC(true))//status
         })
         .catch(err => {
-            handleServerError(err,dispatch)
+            debugger
+            dispatch(setErrorAppAC(err.message))
+            // handleServerError(err,dispatch)
             // const error = e.response
             //     ? e.response.data.error
             //     : (e.message + ', more details in the console');

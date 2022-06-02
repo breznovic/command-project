@@ -5,20 +5,20 @@ import Checkbox from "../../common/checkbox/Checkbox";
 import {useDispatch, useSelector} from "react-redux";
 import {LoginTC, SetLoggedInType} from "../../reducers/auth-reducer";
 import {AppStateType, AppThunk, useAppDispatch} from "../../reducers/store";
-import {AnyAction} from 'redux';
+
 import {Navigate} from "react-router-dom";
 import Input from "../../common/input/Input";
-import {ErrorSnackbar} from "../ErrorSnackBar/errorSnackBar";
 
-type FormikErrorType={
-    email?:string
-    password?:string
-    rememberMe?:boolean
+
+type FormikErrorType = {
+    email?: string
+    password?: string
+    rememberMe?: boolean
 }
 
 const Login = () => {
-    const dispatch= useAppDispatch()
-    const isLoggedIn=useSelector<AppStateType,boolean>(state=>state.auth.isLoggedIn)
+    const dispatch = useAppDispatch()
+    const isLoggedIn = useSelector<AppStateType, boolean>(state => state.auth.isLoggedIn)
 
     const formik = useFormik({
         initialValues: {
@@ -43,42 +43,43 @@ const Login = () => {
         },
         onSubmit: values => {
             dispatch(LoginTC(values));
-             formik.resetForm()
+            formik.resetForm()
         },
     })
-if( isLoggedIn){
-    return <Navigate to={'/profile'}/>
-}
+    if (isLoggedIn) {
+        return <Navigate to={'/profile'}/>
+    }
 
     return <form onSubmit={formik.handleSubmit}>
         <div>
 
-        <Input
-            placeholder={'email'}
-            {...formik.getFieldProps("email")}
+
+            <Input
+                placeholder={'email'}
+                {...formik.getFieldProps("email")}
 
 
-        />
+            />
         </div>
         <div>
-        {formik.touched.email &&
-        formik.errors.email &&
-        <div style={{color: 'red'}}>{formik.errors.email}</div>}
+            {formik.touched.email &&
+            formik.errors.email &&
+            <div style={{color: 'red'}}>{formik.errors.email}</div>}
 
-        <Input placeholder={'password'}
-               {...formik.getFieldProps("password")}
+            <Input placeholder={'password'}
+                   {...formik.getFieldProps("password")}
 
-        />
+            />
         </div>
         {formik.touched.password &&
         formik.errors.password &&
         <div style={{color: 'red'}}>{formik.errors.password}</div>}
-       <Checkbox
-           checked={formik.values.rememberMe}
-           {...formik.getFieldProps('rememberMe')}>
-           Remember Me
-       </Checkbox>
-        <Button >
+        <Checkbox
+            checked={formik.values.rememberMe}
+            {...formik.getFieldProps('rememberMe')}>
+            Remember Me
+        </Checkbox>
+        <Button>
             Login
         </Button>
 

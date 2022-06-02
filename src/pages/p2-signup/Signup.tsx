@@ -17,7 +17,7 @@ const Signup = () => {
 
     const dispatch=useAppDispatch()
     const isRegisterIn=useSelector<AppStateType,boolean>(state=>state.auth.isRegisterIn)
-    const err=useSelector<AppStateType,string>(state=>state.app.errorApp)
+
 
     const formik = useFormik({
         initialValues: {
