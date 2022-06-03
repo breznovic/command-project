@@ -17,7 +17,7 @@ export const ErrorSnackbar = () => {
             }, 4500)
             return () => clearTimeout(timer)
         }
-    }, [error])
+    }, [dispatch, error])
 
     const handleClose = () => {
         dispatch(setErrorAC(''))

@@ -1,7 +1,7 @@
 import {Dispatch} from "redux";
 import {UserAPI} from "../API/user-api";
 import {handleServerNetworkError} from "../error-utils/error";
-import {setIsRegisterInAC} from "./register-reducer";
+import {setIsLoggedInAC} from "./auth-reducer";
 
 const initialState = {
     isInitializeIn: false
@@ -25,10 +25,13 @@ export const setInitializeAC = (isInitializeIn: boolean) => {
 export const InitializeTC = () => (dispatch: Dispatch) => {
     UserAPI.me()
         .then((res) => {
-            dispatch(setIsRegisterInAC(true))
+            dispatch(setIsLoggedInAC(true))
         })
         .catch(error => {
             handleServerNetworkError(error.response.data.error, dispatch)
+        })
+        .finally(() => {
+            dispatch(setInitializeAC(true))
         })
 }
 //types
