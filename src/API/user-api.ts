@@ -8,6 +8,9 @@ export const UserAPI = {
     register(data: RegisterArgsType) {
         return instance.post<RegisterResponseType>(`/auth/register`, data)
     },
+    me() {
+        return instance.post<ResponseUserType>('auth/me')
+    },
 }
 
 
