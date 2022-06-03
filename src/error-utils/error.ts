@@ -1,7 +1,7 @@
-import {Dispatch} from 'redux';
-import {setErrorAC, ErrorActionType} from "../reducers/app-reducer";
+import {Dispatch} from "redux";
+import {setErrorAppAC, SetErrorAppType} from "../reducers/app-reducer";
 
 
-export const handleServerNetworkError = (error: string , dispatch: Dispatch<ErrorActionType>) => {
-    dispatch(setErrorAC(error ? error: 'Some error-utils occurred'))
+export const handleServerError = (error:any, dispatch: Dispatch<SetErrorAppType>) => {
+    dispatch(setErrorAppAC(error ? error.response?.data.error : ' Error`s details in the console'))
 }

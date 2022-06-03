@@ -1,23 +1,45 @@
 const initialState = {
-    error: '',
+    error: null as null | string,
+    status: false
 }
+type InitialStateType = {
+    error: null | string
+    status: boolean
+}
+type GeneralType = SetErrorAppType
+    | SetStatusAppType
 
 
-export const appReducer = (state: InitialStateType = initialState, action: ErrorActionType): InitialStateType => {
+export const appReducer = (state: InitialStateType = initialState, action: GeneralType): InitialStateType => {
     switch (action.type) {
-        case "SET_ERROR":
+        case "login/SET-ERROR-APP": {
             return {...state, error: action.error}
+
+        }
+        case "login/SET-STATUS-APP": {
+            return {...state, status: action.status}
+        }
+
         default:
             return state
     }
 }
 
 
-//actions
-export const setErrorAC = (error: string) => ({type: 'SET_ERROR', error}as const)
+export type SetErrorAppType = ReturnType<typeof setErrorAppAC>
+export const setErrorAppAC = (error: string | null) => {
+    return {
+        type: "login/SET-ERROR-APP",
+        error
 
-//thunks
+    } as const
+}
 
-//types
-type InitialStateType = typeof initialState
-export type ErrorActionType =  ReturnType<typeof setErrorAC>
+export type SetStatusAppType = ReturnType<typeof setStatusAppAC>
+export const setStatusAppAC = (status: boolean) => {
+    return {
+        type: "login/SET-STATUS-APP",
+        status
+
+    } as const
+}

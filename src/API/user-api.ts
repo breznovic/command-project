@@ -1,43 +1,49 @@
 import {instance} from "./instance";
 
-export const UserAPI = {
-    login(data: LoginArgsType) {
-        return instance.post<ResponseUserType>(`/auth/login`, data)
-            .then(res => res.data)
+
+export const authApi = {
+    login(data: LoginParamsType) {
+        return instance.post<ResponseType>("auth/login", data)
     },
-    register(data: RegisterArgsType) {
-        return instance.post<RegisterResponseType>(`/auth/register`, data)
+    register(data: RegisterParamsType) {
+        return instance.post<RegisterResponseType>('auth/register', data)
     },
     me() {
-        return instance.post<ResponseUserType>('auth/me')
+        return instance.post<ResponseType>('auth/me')
+    },
+    updateMe(data:UpdateMeType){
+        return instance.put<ResponseType<{avatar:string}>>('auth/me',data)
     },
     logOut() {
         return instance.delete<ResponseDeleteType>('auth/me')
     },
+    forgotLogin(data:ForgotLoginType) {
+        return instance.post<ResponseDeleteType>('auth/forgot',data)
+    },
+
 }
 
 
-//types
-export type LoginArgsType = {
+export type UpdateMeType={
+    name:string
+    avatar:string
+}
+// export type RedactMeResponseType={
+//     updatedUser:ResponseType
+// }
+
+export type ForgotLoginType = {
     email: string
-    password: string
-    rememberMe: boolean
+    from: string
+    message: string
 }
 
-export type ResponseUserType = {
-    _id: string
-    email: string
-    name: string
-    avatar?: string
-    publicCardPacksCount: number// количество колод
-    created: Date
-    updated: Date
-    isAdmin: boolean
-    verified: boolean // подтвердил ли почту
-    rememberMe: boolean
-    error?: string
-}
 
+export type ResponseDeleteType = {
+    info: string
+
+    error: string;
+}
 export type RegisterResponseType = {
     addedUser: {
         // не важные данные, просто для проверки
@@ -46,15 +52,31 @@ export type RegisterResponseType = {
     error?: string;
 }
 
-export type RegisterArgsType = {
+export type RegisterParamsType = {
     email: string
     password: string
 
 }
 
+export type LoginParamsType = {
+    email: string
+    password: string
+    rememberMe: boolean
+}
 
-export type ResponseDeleteType = {
-    info: string
+export type ResponseType <D={}>= {
+    _id: string;
+    email: string;
+    name: string;
+    avatar: string;
+    publicCardPacksCount: number;
+// количество колод
 
-    error: string;
+    created: Date;
+    updated: Date;
+    isAdmin: boolean;
+    verified: boolean; // подтвердил ли почту
+    rememberMe: boolean;
+
+    error?: string;
 }

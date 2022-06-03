@@ -1,24 +1,24 @@
 import React, {useEffect} from 'react';
-import {InitializeTC} from "../../reducers/initialize-reducer";
-import {useDispatch, useSelector} from "react-redux";
-import {AppStateType} from "../../reducers/store";
-import { Navigate } from 'react-router-dom';
-import Input from '../../common/input/Input';
 import {useFormik} from "formik";
+import {InitializeTC, LoginTC, LogOutTC} from "../../reducers/auth-reducer";
+import {useDispatch, useSelector} from "react-redux";
+import Input from "../../common/input/Input";
 import Button from "../../common/button/Button";
-import {LogOutTC} from "../../reducers/auth-reducer";
+import {AppStateType, useAppDispatch} from "../../reducers/store";
+import {Navigate} from "react-router-dom";
+
 
 const Profile = () => {
-
-    const dispatch = useDispatch()
+    const dispatch = useAppDispatch()
     const isLoggedIn = useSelector<AppStateType, boolean>(state => state.auth.isLoggedIn)
     const name = useSelector<AppStateType, string>(state => state.auth.profile.name)
     const email = useSelector<AppStateType, string>(state => state.auth.profile.email)
 
     useEffect(() => {
         if (isLoggedIn)
-            dispatch<any>(InitializeTC)
-    }, [dispatch, isLoggedIn])
+            dispatch(InitializeTC)
+    }, [])
+
 
     const formik = useFormik({
 
@@ -28,10 +28,11 @@ const Profile = () => {
         },
 
         onSubmit: values => {
-            dispatch(LogOutTC() as any);
+            dispatch(LogOutTC());
             formik.resetForm()
         },
     })
+
 
     if (!isLoggedIn) {
         return <Navigate to={'/login'}/>

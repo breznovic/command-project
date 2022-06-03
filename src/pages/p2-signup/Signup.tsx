@@ -1,28 +1,30 @@
 import React from 'react';
 import {useFormik} from "formik";
-import {useDispatch, useSelector} from "react-redux";
-import {registerTC} from "../../reducers/register-reducer";
-import {AppStateType} from "../../reducers/store";
-import {Navigate} from 'react-router-dom';
+import { RegisterTC} from "../../reducers/auth-reducer";
 import Input from "../../common/input/Input";
-import Button from '../../common/button/Button';
+import Button from "../../common/button/Button";
+import {useDispatch, useSelector} from "react-redux";
+import {AppStateType, useAppDispatch} from "../../reducers/store";
+import {Navigate} from "react-router-dom";
 
-type FormikErrorType = {
-    email?: string
-    password?: string
-    confirmPassword?: string
+import {ErrorSnackbar} from "../ErrorSnackBar/errorSnackBar";
+
+type FormikErrorType={
+    email?:string
+    password?:string
+    confirmPassword?:string
 }
+const Signup = () => {
 
-const SignUp = () => {
+    const dispatch=useAppDispatch()
+    const isRegisterIn=useSelector<AppStateType,boolean>(state=>state.auth.isRegisterIn)
 
-    const dispatch = useDispatch()
-    const isRegisterIn = useSelector<AppStateType, boolean>(state => state.register.isRegisterIn)
 
     const formik = useFormik({
         initialValues: {
             email: '',
             password: '',
-            confirmPassword: '',
+            confirmPassword: ''
         },
         validate: (values) => {
             const errors: FormikErrorType = {};
@@ -31,74 +33,69 @@ const SignUp = () => {
             } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
                 errors.email = 'Invalid email address';
             }
-
             if (!values.password) {
-                errors.password = 'Поле пароль обязательно';
-            } else if (values.password.length < 7) {
-                errors.password = 'Должно быть 8 символов или больше';
+                errors.password = "Password must not be a null"
+            } else if (values.password.length < 4) {
+                errors.email = 'To small password';
             }
-
-            if (values.password !== values.confirmPassword) {
-                errors.confirmPassword = 'Пароль должен совпадать';
-            } else if (values.password.length < 7) {
-                errors.confirmPassword = 'Должно быть 8 символов или больше';
-            }
-
+            // if(values.confirmPassword !== values.password){
+            //     errors.confirmPassword="Password not a correct"
+            // }
             return errors;
+
         },
-        onSubmit: (values) => {
-            dispatch(registerTC(values) as any)
+        onSubmit: values => {
+            dispatch(RegisterTC(values));
+            formik.resetForm()
         },
     })
-
-    //если зарегистрировался, переходим на login
-    if (isRegisterIn) {
+    if(isRegisterIn){
         return <Navigate to={'/login'}/>
     }
+    return     <form onSubmit={formik.handleSubmit}>
 
-    return (
-        <>
-            {/*{loading && <LinearProgress color="secondary"/>}*/}
-            <h1> Sign Up a new user</h1>
+        <div>
 
-            <form onSubmit={formik.handleSubmit}>
-                <div>
-                    <label htmlFor="email">Email</label>
-                    <Input
-                        type={"email"}
-                        {...formik.getFieldProps('email')}
-                    />
-                    {formik.touched.email && formik.errors.email
-                        ? <div style={{color: 'red'}}>{formik.errors.email}</div>
-                        : null}
-                </div>
-                <div>
-                    <label htmlFor="password">Password</label>
-                    <Input
-                        type={"password"}
-                        error={!!(formik.touched.password && formik.errors.password)}
-                        {...formik.getFieldProps('password')}
-                    />
-                    {formik.touched.password && formik.errors.password
-                        ? <div style={{color: 'red'}}>{formik.errors.password}</div>
-                        : null}
-                </div>
-                <div>
-                    <label htmlFor="confirmPassword">Confirm Password</label>
-                    <Input
-                        type={"confirmPassword"}
-                        error={!!(formik.touched.confirmPassword && formik.errors.confirmPassword)}
-                        {...formik.getFieldProps('confirmPassword')}
-                    />
-                    {formik.touched.confirmPassword && formik.errors.confirmPassword
-                        ? <div style={{color: 'red'}}>{formik.errors.confirmPassword}</div>
-                        : null}
-                </div>
-                <Button>Cancel</Button>
-                <Button type={'submit'}>Sign Up</Button>
-            </form>
-        </>
-    );
+            <Input
+                placeholder={'email'}
+                {...formik.getFieldProps("email")}
+
+
+            />
+        </div>
+        <div>
+            {formik.touched.email &&
+            formik.errors.email &&
+            <div style={{color: 'red'}}>{formik.errors.email}</div>}
+
+            <Input placeholder={'password'}
+                   {...formik.getFieldProps("password")}
+
+            />
+        </div>
+        {formik.touched.password &&
+        formik.errors.password &&
+        <div style={{color: 'red'}}>{formik.errors.password}</div>}
+        <Input
+            placeholder={' confirmPassword'}
+            {...formik.getFieldProps(" confirmPassword")}
+
+        />
+        {formik.touched.password &&
+        formik.errors.password &&
+        <div style={{color: 'red'}}>{formik.errors.password}</div>}
+        <div>
+
+        <Button  >
+            Register
+        </Button>
+        <Button >
+          Cancel
+        </Button>
+        </div>
+
+    </form>
 };
 
-export default SignUp;
+export default Signup;
+

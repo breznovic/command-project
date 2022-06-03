@@ -1,30 +1,30 @@
-import React from 'react';
-import Input from "../../common/input/Input";
-import Button from "../../common/button/Button";
+import React, {Dispatch} from 'react';
+import {useFormik} from "formik";
+import Button from '../../common/button/Button';
 import Checkbox from "../../common/checkbox/Checkbox";
 import {useDispatch, useSelector} from "react-redux";
-import {AppStateType} from "../../reducers/store";
-import {useFormik} from "formik";
-import {Navigate} from 'react-router-dom';
-import {loginTC} from "../../reducers/auth-reducer";
+import {LoginTC, SetLoggedInType} from "../../reducers/auth-reducer";
+import {AppStateType, AppThunk, useAppDispatch} from "../../reducers/store";
+
+import {Navigate} from "react-router-dom";
+import Input from "../../common/input/Input";
+import {ErrorSnackbar} from "../ErrorSnackBar/errorSnackBar";
+
+
+type FormikErrorType = {
+    email?: string
+    password?: string
+    rememberMe?: boolean
+}
 
 const Login = () => {
-
-    const dispatch = useDispatch()
-
-    const isLoggedIn = useSelector<AppStateType, boolean>((state) => state.auth.isLoggedIn)
-
-    type FormikErrorType = {
-        email?: string
-        password?: string
-        rememberMe?: boolean
-    }
-
+    const dispatch = useAppDispatch()
+    const isLoggedIn = useSelector<AppStateType, boolean>(state => state.auth.isLoggedIn)
 
     const formik = useFormik({
         initialValues: {
-            email: 'nya-admin@nya.nya',
-            password: '1qazxcvBG',
+            email: '',
+            password: '',
             rememberMe: false
         },
         validate: (values) => {
@@ -34,51 +34,58 @@ const Login = () => {
             } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
                 errors.email = 'Invalid email address';
             }
-
             if (!values.password) {
-                errors.password = 'пароль обязателен';
-            } else if (values.password.length < 3) {
-                errors.password = 'Пароль должен быть больше 3 символов';
+                errors.password = "Password must not be a null"
+            } else if (values.password.length < 4) {
+                errors.email = 'To small password';
             }
             return errors;
+
         },
         onSubmit: values => {
-            dispatch(loginTC(values)as any)
+            dispatch(LoginTC(values));
+            formik.resetForm()
         },
     })
-
     if (isLoggedIn) {
         return <Navigate to={'/profile'}/>
     }
 
+    return <form onSubmit={formik.handleSubmit}>
+        <div>
 
-    return (
-        <>
-            <h1>Log in</h1>
-            <form onSubmit={formik.handleSubmit}>
-                <div>
-                    <label htmlFor="email">Email</label>
-                    <Input {...formik.getFieldProps('email')}
-                    />
-                    {formik.touched.email &&
-                    formik.errors.email &&
-                    <div style={{color: 'red'}}>{formik.errors.email}</div>}
-                </div>
-                <div>
-                    <label htmlFor="password">Password</label>
-                    <Input type="password" {...formik.getFieldProps('password')}/>
-                    {formik.touched.password && formik.errors.password
-                    && <div style={{color: 'red'}}>{formik.errors.password}</div>}
 
-                </div>
-                <Checkbox
-                    checked={formik.values.rememberMe}
-                    {...formik.getFieldProps('rememberMe')}
-                >Remember me</Checkbox>
-                <Button type={'submit'}>Submit</Button>
-            </form>
-        </>
-    );
+            <Input
+                placeholder={'email'}
+                {...formik.getFieldProps("email")}
+
+
+            />
+        </div>
+        <div>
+            {formik.touched.email &&
+            formik.errors.email &&
+            <div style={{color: 'red'}}>{formik.errors.email}</div>}
+
+            <Input placeholder={'password'}
+                   {...formik.getFieldProps("password")}
+
+            />
+        </div>
+        {formik.touched.password &&
+        formik.errors.password &&
+        <div style={{color: 'red'}}>{formik.errors.password}</div>}
+        <Checkbox
+            checked={formik.values.rememberMe}
+            {...formik.getFieldProps('rememberMe')}>
+            Remember Me
+        </Checkbox>
+        <Button>
+            Login
+        </Button>
+
+    </form>
+
 };
 
 export default Login;
