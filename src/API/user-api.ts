@@ -11,6 +11,9 @@ export const UserAPI = {
     me() {
         return instance.post<ResponseUserType>('auth/me')
     },
+    logOut() {
+        return instance.delete<ResponseDeleteType>('auth/me')
+    },
 }
 
 
@@ -47,4 +50,11 @@ export type RegisterArgsType = {
     email: string
     password: string
 
+}
+
+
+export type ResponseDeleteType = {
+    info: string
+
+    error: string;
 }
