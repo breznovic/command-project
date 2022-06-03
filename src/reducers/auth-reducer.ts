@@ -128,12 +128,12 @@ export const updateUserParamsAC = (name: string, avatar: string) => {
 
 export const LoginTC = (data: LoginParamsType): AppThunk => (dispatch) => {
 debugger
-    dispatch(setStatusAppAC(false)) //статус выполнения для крутилки
+    dispatch(setStatusAppAC(true)) //статус выполнения для крутилки
     authApi.login(data)
         .then((res) => {
             dispatch(setLoggedInAC(true)) // диспатчим actionCreator для логинизации
             dispatch(setLoginDataAC(res.data))// данные пользователя
-            dispatch(setStatusAppAC(true))//status
+            dispatch(setStatusAppAC(false))//status
         })
         .catch(err => {
             handleServerError(err,dispatch)
@@ -143,11 +143,14 @@ debugger
             //     : (e.message + ', more details in the console');
             // console.log('Error: ', {...e})
         })
+        .finally(()=>{
+            dispatch(setStatusAppAC(false))
+        })
 
 
 }
 export const LogOutTC = (): AppThunk => (dispatch) => {
-    dispatch(setStatusAppAC(false))
+    dispatch(setStatusAppAC(true))
     authApi.logOut()
         .then((res) => {
             dispatch(setLoggedInAC(false))
@@ -156,12 +159,15 @@ export const LogOutTC = (): AppThunk => (dispatch) => {
         .catch((err )=> {
             handleServerError(err,dispatch)
         })
+        .finally(()=>{
+            dispatch(setStatusAppAC(false))
+        })
 
 
 }
 export const RegisterTC = (data: RegisterParamsType): AppThunk => (dispatch) => {
 
-    dispatch(setStatusAppAC(false))
+    dispatch(setStatusAppAC(true))
     authApi.register(data)
         .then((res) => {
             dispatch(setStatusAppAC(true))
@@ -170,6 +176,9 @@ export const RegisterTC = (data: RegisterParamsType): AppThunk => (dispatch) => 
         })
         .catch(err => {
             handleServerError(err,dispatch)
+        })
+        .finally(()=>{
+            dispatch(setStatusAppAC(false))
         })
 
 
