@@ -1,9 +1,9 @@
 const initialState = {
-    error: 'fuck' as null|string,
+    error: '' as null | string,
     status: false
 }
 type InitialStateType = {
-    error: null|string
+    error: null | string
     status: boolean
 }
 type GeneralType = SetErrorAppType
@@ -21,13 +21,13 @@ export const appReducer = (state: InitialStateType = initialState, action: Gener
         }
 
         default:
-            return {...state}
+            return state
     }
 }
 
 
 export type SetErrorAppType = ReturnType<typeof setErrorAppAC>
-export const setErrorAppAC = (error: string|null ) => {
+export const setErrorAppAC = (error: string | null) => {
     return {
         type: "login/SET-ERROR-APP",
         error

@@ -5,6 +5,7 @@ import {setErrorAppAC, setStatusAppAC} from "./app-reducer";
 
 
 import {handleServerError} from "../error-utils/error";
+import {AxiosError} from "axios";
 
 export type ProfileType = {
     _id: string,
@@ -135,8 +136,7 @@ debugger
             dispatch(setStatusAppAC(true))//status
         })
         .catch(err => {
-            debugger
-            dispatch(setErrorAppAC(err.message))
+            handleServerError(err,dispatch)
             // handleServerError(err,dispatch)
             // const error = e.response
             //     ? e.response.data.error
@@ -153,7 +153,7 @@ export const LogOutTC = (): AppThunk => (dispatch) => {
             dispatch(setLoggedInAC(false))
             dispatch(setStatusAppAC(true))
         })
-        .catch(err => {
+        .catch((err )=> {
             handleServerError(err,dispatch)
         })
 

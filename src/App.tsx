@@ -31,7 +31,7 @@ function App() {
 
             <Header/>
             <Pages/>
-            {/*<ErrorSnackbar/>*/}
+            <ErrorSnackbar/>
         </div>
 
     );
