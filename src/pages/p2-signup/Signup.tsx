@@ -1,6 +1,6 @@
 import React from 'react';
 import {useFormik} from "formik";
-import { RegisterTC} from "../../reducers/auth-reducer";
+import {RegisterTC} from "../../reducers/auth-reducer";
 import Input from "../../common/input/Input";
 import Button from "../../common/button/Button";
 import {useDispatch, useSelector} from "react-redux";
@@ -9,15 +9,16 @@ import {Navigate} from "react-router-dom";
 
 import {ErrorSnackbar} from "../ErrorSnackBar/errorSnackBar";
 
-type FormikErrorType={
-    email?:string
-    password?:string
-    confirmPassword?:string
+type FormikErrorType = {
+    email?: string
+    password?: string
+    confirmPassword?: string
 }
 const Signup = () => {
 
-    const dispatch=useAppDispatch()
-    const isRegisterIn=useSelector<AppStateType,boolean>(state=>state.auth.isRegisterIn)
+    const dispatch = useAppDispatch()
+    const isRegisterIn = useSelector<AppStateType, boolean>(state => state.auth.isRegisterIn)
+
 
 
     const formik = useFormik({
@@ -46,14 +47,14 @@ const Signup = () => {
         },
         onSubmit: values => {
             dispatch(RegisterTC(values));
-            formik.resetForm()
+
         },
     })
-    if(isRegisterIn){
+    if (isRegisterIn) {
         return <Navigate to={'/login'}/>
     }
-    return     <form onSubmit={formik.handleSubmit}>
-
+    return <form onSubmit={formik.handleSubmit}>
+        <h2>Registration</h2>
         <div>
 
             <Input
@@ -86,12 +87,10 @@ const Signup = () => {
         <div style={{color: 'red'}}>{formik.errors.password}</div>}
         <div>
 
-        <Button  >
-            Register
-        </Button>
-        <Button >
-          Cancel
-        </Button>
+            <Button>
+                Register
+            </Button>
+
         </div>
 
     </form>

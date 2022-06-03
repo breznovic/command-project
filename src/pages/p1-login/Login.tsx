@@ -36,7 +36,7 @@ const Login = () => {
             if (!values.password) {
                 errors.password = "Password must not be a null"
             } else if (values.password.length < 4) {
-                errors.email = 'To small password';
+                errors.password = 'To small password';
             }
             return errors;
 
@@ -53,6 +53,7 @@ const Login = () => {
     return <form onSubmit={formik.handleSubmit}>
         <div>
 
+            <h2>Login</h2>
 
             <Input
                 placeholder={'email'}

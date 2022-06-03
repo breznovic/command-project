@@ -41,7 +41,7 @@ const Profile = () => {
     return <form onSubmit={formik.handleSubmit}>
 
         <div>
-
+            <h2>My Profile</h2>
 
             <Input placeholder={'Nickname'}
                    {...formik.getFieldProps("nickName")}

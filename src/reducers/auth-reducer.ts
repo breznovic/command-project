@@ -1,11 +1,11 @@
 import {authApi, LoginParamsType, RegisterParamsType, UpdateMeType} from "../API/user-api";
 import {AppThunk} from "./store";
 
-import {setErrorAppAC, setStatusAppAC} from "./app-reducer";
+import { setStatusAppAC} from "./app-reducer";
 
 
 import {handleServerError} from "../error-utils/error";
-import {AxiosError} from "axios";
+
 
 export type ProfileType = {
     _id: string,
