@@ -3,7 +3,24 @@ import {Dispatch} from "redux";
 import {handleServerNetworkError} from "../error-utils/error";
 
 const initialState = {
-    isLoggedIn: false
+    isLoggedIn: false,
+    profile: {
+        _id: "",
+        email: "",
+        name: "",
+        avatar: '',
+        publicCardPacksCount: 0,
+// количество колод
+
+        created: new Date(),
+        updated: new Date(),
+        isAdmin: false,
+        verified: false, // подтвердил ли почту
+        rememberMe: false,
+
+        error: ''
+
+    }
 }
 
 
@@ -28,6 +45,18 @@ export const loginTC = (data: LoginArgsType) => (dispatch: Dispatch) => {
         .catch(error => {
             handleServerNetworkError(error.response.data.error, dispatch)
         })
+}
+
+export const LogOutTC = () => (dispatch: Dispatch) => {
+    UserAPI.logOut()
+        .then((res) => {
+            dispatch(setIsLoggedInAC(false))
+        })
+        .catch((error )=> {
+            handleServerNetworkError(error.response.data.error,dispatch)
+        })
+
+
 }
 
 //types
