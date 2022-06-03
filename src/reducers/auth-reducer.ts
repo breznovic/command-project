@@ -1,6 +1,6 @@
 import {LoginArgsType, UserAPI} from "../API/user-api";
 import {Dispatch} from "redux";
-import {handleServerNetworkError} from "../error/error";
+import {handleServerNetworkError} from "../error-utils/error";
 
 const initialState = {
     isLoggedIn: false

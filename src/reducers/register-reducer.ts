@@ -1,6 +1,6 @@
 import {Dispatch} from "redux";
 import {RegisterArgsType, UserAPI} from "../API/user-api";
-import {handleServerNetworkError} from "../error/error";
+import {handleServerNetworkError} from "../error-utils/error";
 
 const initialState = {
     isRegisterIn: false
