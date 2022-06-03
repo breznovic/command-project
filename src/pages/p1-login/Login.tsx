@@ -6,7 +6,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {LoginTC, SetLoggedInType} from "../../reducers/auth-reducer";
 import {AppStateType, AppThunk, useAppDispatch} from "../../reducers/store";
 
-import {Navigate} from "react-router-dom";
+import {Navigate, NavLink} from "react-router-dom";
 import Input from "../../common/input/Input";
 
 
@@ -83,7 +83,7 @@ const Login = () => {
         <Button>
             Login
         </Button>
-
+        <NavLink to={'/new-password'}>Forgot Password?</NavLink>
     </form>
 
 };

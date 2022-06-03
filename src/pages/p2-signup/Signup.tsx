@@ -5,7 +5,7 @@ import Input from "../../common/input/Input";
 import Button from "../../common/button/Button";
 import {useDispatch, useSelector} from "react-redux";
 import {AppStateType, useAppDispatch} from "../../reducers/store";
-import {Navigate} from "react-router-dom";
+import {Navigate,NavLink} from "react-router-dom";
 
 import {ErrorSnackbar} from "../ErrorSnackBar/errorSnackBar";
 
@@ -90,6 +90,9 @@ const Signup = () => {
             <Button>
                 Register
             </Button>
+
+
+
 
         </div>
 

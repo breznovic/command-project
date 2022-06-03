@@ -12,7 +12,7 @@ export const authApi = {
         return instance.post<ResponseType>('auth/me')
     },
     updateMe(data:UpdateMeType){
-        return instance.put<ResponseType<{avatar:string}>>('auth/me',data)
+        return instance.put<ResponseType<{name:string,avatar:string}>>('auth/me',data)
     },
     logOut() {
         return instance.delete<ResponseDeleteType>('auth/me')

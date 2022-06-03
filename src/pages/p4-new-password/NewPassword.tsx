@@ -37,7 +37,7 @@ const NewPassword = () => {
     return <form onSubmit={formik.handleSubmit}>
         <div>
 
-            <h2>Login</h2>
+            <h2>New Password</h2>
 
 
 
