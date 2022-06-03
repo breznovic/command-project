@@ -6,7 +6,8 @@ import Button from "../../common/button/Button";
 import {useDispatch, useSelector} from "react-redux";
 import {AppStateType, useAppDispatch} from "../../reducers/store";
 import {Navigate} from "react-router-dom";
-import CircularProgress from "@mui/material/CircularProgress";
+
+import {ErrorSnackbar} from "../ErrorSnackBar/errorSnackBar";
 
 type FormikErrorType={
     email?:string
@@ -92,6 +93,7 @@ const Signup = () => {
           Cancel
         </Button>
         </div>
+
     </form>
 };
 

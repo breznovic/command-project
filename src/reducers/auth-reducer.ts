@@ -180,6 +180,7 @@ export const InitializeTC = (): AppThunk => (dispatch) => {
         .then((res) => {
             dispatch(setLoggedInAC(true))
             dispatch(setStatusAppAC(true))
+            // handleServerError(res.data.error,dispatch)
         })
         .catch(err => {
             handleServerError(err,dispatch)

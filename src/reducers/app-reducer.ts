@@ -1,5 +1,5 @@
 const initialState = {
-    error: '' as null | string,
+    error: null as null | string,
     status: false
 }
 type InitialStateType = {
