@@ -1,7 +1,7 @@
-import {authApi, LoginParamsType, RegisterParamsType, UpdateMeType} from "../API/user-api";
+import {authApi, ForgotLoginType, LoginParamsType, RegisterParamsType, UpdateMeType} from "../API/user-api";
 import {AppThunk} from "./store";
 
-import { setStatusAppAC} from "./app-reducer";
+import {setStatusAppAC} from "./app-reducer";
 
 
 import {handleServerError} from "../error-utils/error";
@@ -28,6 +28,7 @@ const initialState = {
     isLoggedIn: false,
     isRegisterIn: false,
     isInitializeIn: false,
+    sendSuccess: false,
     profile: {
         _id: "",
         email: "",
@@ -50,6 +51,7 @@ type InitialStateType = {
     isLoggedIn: boolean,
     isRegisterIn: boolean,
     isInitializeIn: boolean,
+    sendSuccess: boolean
     profile: ProfileType
 }
 type GeneralType = SetLoggedInType
@@ -57,6 +59,7 @@ type GeneralType = SetLoggedInType
     | SetInitializeType
     | SetLoginDataACType
     | UpdateUserParamsType
+    | ForgotPasswordType
 
 export const authReducer = (state: InitialStateType = initialState, action: GeneralType): InitialStateType => {
     switch (action.type) {
@@ -73,9 +76,13 @@ export const authReducer = (state: InitialStateType = initialState, action: Gene
         case "login/SET-LOGIN-DATA": {
             return {...state, profile: action.profile}
         }
-        case "login/UPDATE-USER-PARAMS":{
-            return {...state,profile:{...state.profile,name:action.name,avatar:action.avatar}}
+        case "login/UPDATE-USER-PARAMS": {
+            return {...state, profile: {...state.profile, name: action.name, avatar: action.avatar}}
         }
+        case "login/FORGOT-PASSWORD": {
+            return {...state, sendSuccess: action.sendSuccess}
+        }
+
         default:
             return state
     }
@@ -123,11 +130,19 @@ export const updateUserParamsAC = (name: string, avatar: string) => {
         type: 'login/UPDATE-USER-PARAMS',
         name,
         avatar
-    }as const
+    } as const
+}
+
+export type ForgotPasswordType = ReturnType<typeof forgotPasswordAC>
+export const forgotPasswordAC = (sendSuccess: boolean) => {
+    return {
+        type: 'login/FORGOT-PASSWORD',
+        sendSuccess
+    } as const
 }
 
 export const LoginTC = (data: LoginParamsType): AppThunk => (dispatch) => {
-debugger
+    debugger
     dispatch(setStatusAppAC(true)) //статус выполнения для крутилки
     authApi.login(data)
         .then((res) => {
@@ -136,14 +151,14 @@ debugger
             dispatch(setStatusAppAC(false))//status
         })
         .catch(err => {
-            handleServerError(err,dispatch)
+            handleServerError(err, dispatch)
             // handleServerError(err,dispatch)
             // const error = e.response
             //     ? e.response.data.error
             //     : (e.message + ', more details in the console');
             // console.log('Error: ', {...e})
         })
-        .finally(()=>{
+        .finally(() => {
             dispatch(setStatusAppAC(false))
         })
 
@@ -156,10 +171,10 @@ export const LogOutTC = (): AppThunk => (dispatch) => {
             dispatch(setLoggedInAC(false))
             dispatch(setStatusAppAC(true))
         })
-        .catch((err )=> {
-            handleServerError(err,dispatch)
+        .catch((err) => {
+            handleServerError(err, dispatch)
         })
-        .finally(()=>{
+        .finally(() => {
             dispatch(setStatusAppAC(false))
         })
 
@@ -175,16 +190,16 @@ export const RegisterTC = (data: RegisterParamsType): AppThunk => (dispatch) => 
 
         })
         .catch(err => {
-            handleServerError(err,dispatch)
+            handleServerError(err, dispatch)
         })
-        .finally(()=>{
+        .finally(() => {
             dispatch(setStatusAppAC(false))
         })
 
 
 }
 export const InitializeTC = (): AppThunk => (dispatch) => {
-    dispatch(setStatusAppAC(false))
+    dispatch(setStatusAppAC(true))
     authApi.me()
         .then((res) => {
             dispatch(setLoggedInAC(true))
@@ -192,10 +207,11 @@ export const InitializeTC = (): AppThunk => (dispatch) => {
             // handleServerError(res.data.error,dispatch)
         })
         .catch(err => {
-            handleServerError(err,dispatch)
+            handleServerError(err, dispatch)
         })
         .finally(() => {
             dispatch(setInitializeAC(true))
+            dispatch(setStatusAppAC(false))
         })
 
 
@@ -206,9 +222,24 @@ export const UpdateUserTC = (data: UpdateMeType): AppThunk => (dispatch) => {
     dispatch(setStatusAppAC(false))
     authApi.updateMe(data)
         .then((res) => {
-            dispatch( updateUserParamsAC(res.data.name,res.data.avatar))
+            dispatch(updateUserParamsAC(res.data.name, res.data.avatar))
         })
-        .catch(err=>{
-            handleServerError(err,dispatch)
+        .catch(err => {
+            handleServerError(err, dispatch)
+        })
+}
+
+
+export const ResetPasswordTC = (data: ForgotLoginType): AppThunk => (dispatch) => {
+    dispatch(setStatusAppAC(true))
+    authApi.forgotLogin(data)
+        .then((res) => {
+            // dispatch(forgotPasswordAC(res.data))
+        })
+        .catch(()=>{
+
+        })
+        .finally(()=>{
+            dispatch(setStatusAppAC(false))
         })
 }

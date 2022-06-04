@@ -21,6 +21,7 @@ export const authApi = {
         return instance.post<ResponseDeleteType>('auth/forgot',data)
     },
 
+
 }
 
 
@@ -37,7 +38,6 @@ export type ForgotLoginType = {
     from: string
     message: string
 }
-
 
 export type ResponseDeleteType = {
     info: string

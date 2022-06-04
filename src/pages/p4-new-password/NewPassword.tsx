@@ -8,7 +8,7 @@ import Button from "../../common/button/Button";
 
 type FormikErrorType = {
 
-    newPassword?: string
+    email?: string
 
 }
 
@@ -16,15 +16,15 @@ const NewPassword = () => {
     const formik = useFormik({
         initialValues: {
 
-            newPassword: '',
+            email: '',
 
         },
         validate: (values) => {
             const errors: FormikErrorType = {};
-            if (!values.newPassword) {
-                errors.newPassword = "Password must not be a null"
-            } else if (values.newPassword.length < 4) {
-                errors.newPassword = 'To small password';
+            if (!values.email) {
+                errors.email = "email must not be a null"
+            } else if (values.email.length < 4) {
+                errors.email = 'To small email';
             }
             return errors;
 
@@ -40,18 +40,18 @@ const NewPassword = () => {
             <h2>New Password</h2>
 
 
-
-            <Input placeholder={'newPassword'}
+            <Input placeholder={'email'}
                    {...formik.getFieldProps("newPassword")}
 
             />
         </div>
-        {formik.touched.newPassword &&
-        formik.errors.newPassword &&
-        <div style={{color: 'red'}}>{formik.errors.newPassword}</div>}
-
+        {formik.touched.email &&
+        formik.errors.email &&
+        <div style={{color: 'red'}}>{formik.errors.email}</div>}
+        <p>Enter your Email.</p>
+           <p> An to your email will be sent letter to reset your password</p>
         <Button>
-           Change Password
+            Send Letter
         </Button>
 
     </form>
