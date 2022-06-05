@@ -1,7 +1,8 @@
+import {CardPacksType, ResponsePackType} from "../API/cards-api";
 
+const initialState:CardPacksType[]=[]
 
-
-export const authReducer = (state: any, action: any): any => {
+export const authReducer = (state=initialState, action: any): CardPacksType[] => {
     switch (action.type) {
 
 
@@ -9,3 +10,10 @@ export const authReducer = (state: any, action: any): any => {
             return state
     }
 }
+
+
+
+
+
+
+
