@@ -12,7 +12,7 @@ const Header = () => {
                 <NavLink to={PATH.profile} className={({isActive}) => (isActive ? s.active : s.item)}>Profile</NavLink>
                 <NavLink to={PATH.newPassword}
                          className={({isActive}) => (isActive ? s.active : s.item)}>Password</NavLink>
-                <NavLink to={PATH.resetPassword}
+                <NavLink to={PATH.restorePassword}
                          className={({isActive}) => (isActive ? s.active : s.item)}>Reset</NavLink>
                 <NavLink to={PATH.packList}
                          className={({isActive}) => (isActive ? s.active : s.item)}>PackList</NavLink>
