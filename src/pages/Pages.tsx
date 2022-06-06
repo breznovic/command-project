@@ -33,6 +33,8 @@ const Pages = () => {
                 <Route path={PATH.signup} element={<Signup/>}/>
                 <Route path={PATH.profile} element={<Profile/>}/>
                 <Route path={PATH.newPassword} element={<NewPassword/>}/>
+                <Route path={PATH.resetPassword} element={<ResetPassword/>}/>
+                <Route path={PATH.packList} element={<PackListContainer/>}/>
                 <Route path={PATH.restorePassword} element={<RestorePassword/>}/>
                 <Route path={PATH.error} element={<Error404/>}/>
                 <Route path={PATH.test} element={<Test/>}/>
