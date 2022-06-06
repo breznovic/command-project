@@ -2,10 +2,24 @@ import {instance} from "./instance";
 
 
 export const cardsApi = {
-    getPacks(data: PacksParamsType) {
-        return instance.get<ResponsePackType>("/cards/pack", {data})
+    getPacks() {
+        return instance.get<ResponsePackType>("/cards/pack",)
+    },
+    packCreate(data:CreatePackParams){
+        return instance.post<ResponsePackType>('cards/pack',{data})
     }
 }
+
+
+export type CreatePackParams={
+    cardsPack: {
+        name: string
+        deckCover: string
+        private: boolean
+    }
+}
+
+
 
 
 export type PacksParamsType = {
@@ -28,7 +42,7 @@ export type CardPacksType = {
     updated: string
 }
 export type ResponsePackType = {
-    packCard: CardPacksType[]
+    cardPacks: CardPacksType[]
     cardPacksTotalCount: number
     // количество колод
     maxCardsCount: number
