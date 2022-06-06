@@ -36,16 +36,15 @@ const Pages = () => {
                 <Route path={PATH.signup} element={<Signup/>}/>
                 <Route path={PATH.profile} element={<Profile/>}/>
                 <Route path={PATH.newPassword} element={<NewPassword/>}/>
-<<<<<<< HEAD
                 <Route path={PATH.resetPassword} element={<ResetPassword/>}/>
                 <Route path={PATH.packList} element={<PackListContainer/>}/>
-=======
                 <Route path={PATH.restorePassword} element={<RestorePassword/>}/>
->>>>>>> origin/main
                 <Route path={PATH.error} element={<Error404/>}/>
                 <Route path={PATH.test} element={<Test/>}/>
                 <Route path={'*'} element={<Error404/>}/>
-
+                <Route path={'*'} element={<Error404/>}/>
+                <Route path={'*'} element={<Error404/>}/>
+                <Route path={'*'} element={<Error404/>}/>
             </Routes>
         </div>
     );
