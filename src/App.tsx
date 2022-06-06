@@ -12,6 +12,7 @@ import {ErrorSnackbar} from "./pages/ErrorSnackBar/errorSnackBar";
 function App() {
     const dispatch = useDispatch<any>()
     const isInitializeIn = useSelector<AppStateType, boolean>(state => state.auth.isInitializeIn)
+    const status = useSelector<AppStateType, boolean>(state => state.app.status)
 
     useEffect(() => {
         dispatch(InitializeTC())
@@ -32,8 +33,9 @@ function App() {
             <Header/>
             <Pages/>
             <ErrorSnackbar/>
-        </div>
+            {status  && <CircularProgress/>}
 
+        </div>
     );
 }
 

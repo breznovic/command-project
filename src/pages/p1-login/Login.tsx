@@ -6,7 +6,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {LoginTC, SetLoggedInType} from "../../reducers/auth-reducer";
 import {AppStateType, AppThunk, useAppDispatch} from "../../reducers/store";
 
-import {Navigate} from "react-router-dom";
+import {Navigate, NavLink} from "react-router-dom";
 import Input from "../../common/input/Input";
 
 
@@ -36,7 +36,7 @@ const Login = () => {
             if (!values.password) {
                 errors.password = "Password must not be a null"
             } else if (values.password.length < 4) {
-                errors.email = 'To small password';
+                errors.password = 'To small password';
             }
             return errors;
 
@@ -53,6 +53,7 @@ const Login = () => {
     return <form onSubmit={formik.handleSubmit}>
         <div>
 
+            <h2>Login</h2>
 
             <Input
                 placeholder={'email'}
@@ -82,7 +83,7 @@ const Login = () => {
         <Button>
             Login
         </Button>
-
+        <NavLink to={'/new-password'}>Forgot Password?</NavLink>
     </form>
 
 };
