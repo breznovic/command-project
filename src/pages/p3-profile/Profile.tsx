@@ -16,7 +16,7 @@ const Profile = () => {
 
     useEffect(() => {
         if (isLoggedIn)
-            dispatch(InitializeTC)
+            dispatch(InitializeTC())
     }, [])
 
 
