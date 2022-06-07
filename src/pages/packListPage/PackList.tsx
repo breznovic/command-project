@@ -4,6 +4,7 @@ import {FetchCardsTC} from "../../reducers/cards-reducer";
 import {CardPacksType} from "../../API/cards-api";
 import {AppStateType, useAppDispatch} from "../../reducers/store";
 import {Navigate} from "react-router-dom";
+import style from './PackList.module.css'
 
 const PackList = () => {
     const dispatch = useAppDispatch()
@@ -18,18 +19,20 @@ const PackList = () => {
     if(!isLoggedIn){
         return <Navigate to={'/login'}/>
     }
+    debugger
     return (
 
-        <div>
+        <div >
+
             {cards.map(card=>{
 
-                return <li>
+                return <div key={card._id} className={style.packList}>
 
-                    <span>{card.name}</span>
-                    <span>{card.cardsCount}</span>
-                    <span>{card.updated}</span>
+                    <div style={{width:'150px'}}>{card.name}</div>
+                    <div style={{width:'150px'}}>{card.cardsCount}</div>
+                    <div style={{width:'250px'}}>{card.updated}</div>
 
-                    </li>
+                    </div>
 
             })}
         </div>

@@ -7,6 +7,7 @@ import HeaderPack from "./header/Header";
 const PackListContainer = () => {
     return (
         <div>
+            <h2>CardPacks</h2>
             <div>
                 <HeaderPack/>
 

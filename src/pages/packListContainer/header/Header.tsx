@@ -6,12 +6,12 @@ const HeaderPack = () => {
 
              <div className={style.PackListContainer}>
 
-               <div>Name</div>
-               <div>CardsCount</div>
-               <div>Update</div>
+               <div className={style.name}>Name</div>
+               <div className={style.count}>CardsCount</div>
+               <div className={style.update}>Update</div>
 
 
-                 <Button>Add Card</Button>
+                 <Button >Add Card</Button>
                 </div>
 
 

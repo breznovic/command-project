@@ -1,4 +1,17 @@
 .PackListContainer{
     display: flex;
+    justify-content: left;
+    width: 100%;
+    border: red 2px;
 
+}
+.name{
+    width: 150px;
+    border: #0015ff 2px;
+}
+.count{
+    width: 150px;
+}
+.update{
+    width: 250px;
 }
