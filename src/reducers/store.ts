@@ -1,7 +1,7 @@
 import {applyMiddleware, combineReducers, legacy_createStore as createStore} from "redux";
 import thunk, {ThunkAction, ThunkDispatch} from 'redux-thunk'
 import {
-    authReducer, ForgotPasswordType,
+    authReducer, ForgotPasswordType, SetNewPasswordType,
     SetInitializeType,
     SetLoggedInType,
     SetLoginDataACType,
@@ -33,6 +33,7 @@ export type AppActionsType = SetLoggedInType
     | SetLoginDataACType
     | UpdateUserParamsType
     | ForgotPasswordType
+    | SetNewPasswordType
 export type AppStateType = ReturnType<typeof rootReducer>
 // export type AppActionsType
 // @ts-ignore
