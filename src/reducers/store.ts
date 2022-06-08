@@ -10,7 +10,7 @@ import {
 } from "./auth-reducer";
 import {useDispatch} from "react-redux";
 import {appReducer, SetErrorAppType, SetStatusAppType} from "./app-reducer";
-import {AddCardsType, cardsReducer, SetCardsDataType, SetCardsType, SetPageType} from "./cards-reducer";
+import {AddCardsType, cardsReducer, SetCardsDataType, SetCardsType, SetPageCount, SetPageType} from "./cards-reducer";
 
 
 const rootReducer = combineReducers({
@@ -39,6 +39,7 @@ export type AppActionsType = SetLoggedInType
     | AddCardsType
     | SetCardsDataType
     | SetPageType
+    | SetPageCount
 export type AppStateType = ReturnType<typeof rootReducer>
 // export type AppActionsType
 // @ts-ignore

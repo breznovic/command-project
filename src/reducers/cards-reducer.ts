@@ -57,6 +57,7 @@ export type GeneralActionType = SetCardsType
     | AddCardsType
     | SetCardsDataType
     | SetPageType
+    | SetPageCount
 
 export const cardsReducer = (state: InitialStateType = initialState, action: GeneralActionType): InitialStateType => {
     switch (action.type) {
@@ -66,8 +67,8 @@ export const cardsReducer = (state: InitialStateType = initialState, action: Gen
         case "packs/SET-CARDS-DATA": {
             return {...state, ...action.cardsData}
         }
-        case "pack/SET-PAGE":{
-            return {...state,params:state.params,page:action.page}
+        case "pack/SET-PAGE": {
+            return {...state, params: state.params, page: action.page}
         }
         // case "pack/ADD-CARDS":{
         //     return{...state,cardPacks:state.cardPacks.map(card=>card.)}
@@ -111,6 +112,13 @@ export const setPageAC = (page: number) => { // изменение страни�
         page
     } as const
 }
+export type SetPageCount = ReturnType<typeof setPageCountAC>
+export const setPageCountAC = (pageCount: number) => { // изменение страницы
+    return {
+        type: 'pack/SET-PAGE-COUNT',
+        pageCount
+    } as const
+}
 
 
 export const FetchCardsTC = (): AppThunk =>
@@ -125,7 +133,7 @@ export const FetchCardsTC = (): AppThunk =>
             cardsApi.getPacks(params)
                 .then((res) => {
                     dispatch(setCardsAC(res.data.cardPacks))
-                   dispatch(setPageAC(res.data.page))
+                    dispatch(setPageAC(res.data.page))
                 })
                 .catch((err) => {
                     handleServerError(err, dispatch)
