@@ -11,6 +11,8 @@ import s from './Pages.module.css'
 import CircularProgress from "@mui/material/CircularProgress";
 import {useSelector} from "react-redux";
 import {AppStateType} from "../reducers/store";
+import PackList from "./packListPage/PackList";
+import PackListContainer from "./packListContainer/PackListContainer";
 
 export const PATH = {
     login: 'login',
@@ -19,7 +21,8 @@ export const PATH = {
     newPassword: 'new-password',
     restorePassword: 'reset-password',
     error: '404',
-    test: 'test'
+    test: 'test',
+    packList: 'pack-list'
 }
 
 const Pages = () => {
@@ -33,6 +36,7 @@ const Pages = () => {
                 <Route path={PATH.signup} element={<Signup/>}/>
                 <Route path={PATH.profile} element={<Profile/>}/>
                 <Route path={PATH.newPassword} element={<NewPassword/>}/>
+                <Route path={PATH.packList} element={<PackListContainer/>}/>
                 <Route path={PATH.restorePassword} element={<RestorePassword/>}/>
                 <Route path={PATH.error} element={<Error404/>}/>
                 <Route path={PATH.test} element={<Test/>}/>
