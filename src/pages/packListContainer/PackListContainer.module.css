@@ -2,15 +2,15 @@
     display: flex;
     justify-content: left;
     width: 100%;
-    border: red 2px;
+   background-color: bisque;
 
 }
 .name{
-    width: 150px;
-    border: #0015ff 2px;
+    width: 250px;
+
 }
 .count{
-    width: 150px;
+    width: 250px;
 }
 .update{
     width: 250px;
