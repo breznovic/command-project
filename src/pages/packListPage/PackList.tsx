@@ -10,10 +10,10 @@ const PackList = () => {
     const dispatch = useAppDispatch()
     const isLoggedIn = useSelector<AppStateType, boolean>(state => state.auth.isLoggedIn)
     const cards = useSelector<AppStateType, CardPacksType[]>(state => state.cardPacks.cardPacks)
-    const pageCount = useSelector<AppStateType, number>(state => state.cardPacks.pageCount)
+    const pageCount = useSelector<AppStateType, number>(state => state.cardPacks.params.pageCount)
 
-    const onClickHandler=()=>{
-
+    const onClickHandler = () => {
+        dispatch(FetchCardsTC())
     }
 
     useEffect(() => {
@@ -46,15 +46,15 @@ const PackList = () => {
                 </div>
 
             })}
-
-            {currentPage.map((page)=>{
-                return <span
-
-                >
+            <div className={style.pageCount}>
+                {currentPage.map((page) => {
+                    return <span
+                        onClick={onClickHandler}
+                    >
 {page}
                 </span>
-            })}
-
+                })}
+            </div>
         </div>
     );
 };

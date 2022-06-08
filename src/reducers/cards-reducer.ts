@@ -71,7 +71,8 @@ export const cardsReducer = (state: InitialStateType = initialState, action: Gen
             return {...state, params: state.params, page: action.page}
         }
         // case "pack/ADD-CARDS":{
-        //     return{...state,cardPacks:state.cardPacks.map(card=>card.)}
+        //     let pack = {name: action.name}
+        //     return{...state,cardPacks:{...state.cardPacks,...pack}}
         // }
         default:
             return state
@@ -132,6 +133,7 @@ export const FetchCardsTC = (): AppThunk =>
             }
             cardsApi.getPacks(params)
                 .then((res) => {
+
                     dispatch(setCardsAC(res.data.cardPacks))
                     dispatch(setPageAC(res.data.page))
                 })
@@ -146,19 +148,22 @@ export const FetchCardsTC = (): AppThunk =>
     }
 
 
-export const CreateCardsTC = (name: string): AppThunk =>
-    (dispatch) => {
+export const CreateCardsTC = (): AppThunk =>
+    (dispatch,getState:()=>AppStateType) => {
         dispatch(setStatusAppAC(true))
-        cardsApi.packCreate(name)
-            .then((res) => {
-                // dispatch(FetchCardsTC())
-            })
-            .catch(() => {
 
-            })
-            .finally(() => {
-                dispatch(setStatusAppAC(false))
-            })
+            cardsApi.packCreate()
+                .then((res) => {
+
+                     dispatch(FetchCardsTC())
+                })
+                .catch(() => {
+
+                })
+                .finally(() => {
+                    dispatch(setStatusAppAC(false))
+                })
+
     }
 
 
