@@ -5,8 +5,8 @@ export const cardsApi = {
     getPacks(params:PacksParamsType) {
         return instance.get<ResponsePackType>("/cards/pack", {params})
     },
-    packCreate(name:string){
-        return instance.post<ResponsePackType>('cards/pack',{cardsPack:{name:'Mega Hacker'}})
+    packCreate(){
+        return instance.post<ResponsePackType>('cards/pack',)
     }
 }
 
