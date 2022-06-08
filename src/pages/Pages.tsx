@@ -22,7 +22,7 @@ export const PATH = {
     restorePassword: 'reset-password',
     error: '404',
     test: 'test',
-    packList:'pack-list'
+    packList: 'pack-list'
 }
 
 const Pages = () => {
@@ -36,7 +36,6 @@ const Pages = () => {
                 <Route path={PATH.signup} element={<Signup/>}/>
                 <Route path={PATH.profile} element={<Profile/>}/>
                 <Route path={PATH.newPassword} element={<NewPassword/>}/>
-                {/*<Route path={PATH.resetPassword} element={<ResetPassword/>}/>*/}
                 <Route path={PATH.packList} element={<PackListContainer/>}/>
                 <Route path={PATH.restorePassword} element={<RestorePassword/>}/>
                 <Route path={PATH.error} element={<Error404/>}/>
