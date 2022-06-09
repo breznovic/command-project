@@ -149,20 +149,20 @@ export const FetchCardsTC = (): AppThunk =>
 
 
 export const CreateCardsTC = (): AppThunk =>
-    (dispatch,getState:()=>AppStateType) => {
+    (dispatch, getState: () => AppStateType) => {
         dispatch(setStatusAppAC(true))
+        const name = "HEllO,I am Dima Maslo"
+        cardsApi.packCreate(name)
+            .then((res) => {
 
-            cardsApi.packCreate()
-                .then((res) => {
+                dispatch(FetchCardsTC())
+            })
+            .catch(() => {
 
-                     dispatch(FetchCardsTC())
-                })
-                .catch(() => {
-
-                })
-                .finally(() => {
-                    dispatch(setStatusAppAC(false))
-                })
+            })
+            .finally(() => {
+                dispatch(setStatusAppAC(false))
+            })
 
     }
 

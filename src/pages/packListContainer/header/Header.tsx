@@ -6,12 +6,12 @@ import {CreateCardsTC} from "../../../reducers/cards-reducer";
 import {useSelector} from "react-redux";
 import {CardPacksType} from "../../../API/cards-api";
 const HeaderPack = () => {
-    // const dispatch = useAppDispatch()
+    const dispatch = useAppDispatch()
     // const name=useSelector<AppStateType,CardPacksType[]>(state=>state.cardPacks)
 
-    // const addPack=()=>{
-    //     dispatch(CreateCardsTC(name))
-    // }
+    const addPack=()=>{
+        dispatch(CreateCardsTC())
+    }
 
 
     return (
@@ -24,7 +24,7 @@ const HeaderPack = () => {
 
 
                  <div>
-                     <Button  >Add Card</Button>
+                     <Button onClick={addPack} >Add Card</Button>
                  </div>
                 </div>
 
