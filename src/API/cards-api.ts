@@ -26,7 +26,7 @@ export type PacksParamsType = {
     min?: number // не обязательно
     max?: number // не обязательно
     sortPacks?: number// не обязательно
-    page?: number // не обязательно
+    page: number // не обязательно
     pageCount?: number // не обязательно
 
 
