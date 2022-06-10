@@ -10,6 +10,9 @@ export const cardsApi = {
     },
     deletePack(id: string) {
         return instance.delete<ResponsePackType>("cards/pack", {params:{id}})
+    },
+    updatePack(_id:string,name:string){
+        return instance.put<ResponsePackType>("cards/pack",{cardsPack:{_id,name}})
     }
 }
 

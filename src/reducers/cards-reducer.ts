@@ -63,6 +63,7 @@ export type GeneralActionType = SetCardsType
     | SetPageCountType
     | IdFilterPackType
     | DeletePackType
+    | UpdatePackType
 
 export const cardsReducer = (state: InitialStateType = initialState, action: GeneralActionType): InitialStateType => {
     switch (action.type) {
@@ -82,9 +83,12 @@ export const cardsReducer = (state: InitialStateType = initialState, action: Gen
             let pack = {name: action.name}
             return {...state, cardPacks: {...state.cardPacks, ...pack}}
         }
-        case "pack/DELETE-PACK":{
-            return{...state,cardPacks: state.cardPacks.filter(f=>f._id!==action.id)}
+        case "pack/DELETE-PACK": {
+            return {...state, cardPacks: state.cardPacks.filter(f => f._id !== action.id)}
         }
+        // case "pack/UPDATE-PACK": {
+        //     return {...state, cardPacks: state.cardPacks.map(m=>m._id===action.id?{...m,name:action.name}:m)}
+        // }
         default:
             return state
     }
@@ -145,6 +149,14 @@ export const deletePackAC = (id: string) => { // удаление пака
         id
     } as const
 }
+export type UpdatePackType = ReturnType<typeof updatePackAC>
+export const updatePackAC = (id: string, name: string) => { // обновление пака
+    return {
+        type: 'pack/UPDATE-PACK',
+        id,
+        name
+    } as const
+}
 
 
 export const FetchCardsTC = (): AppThunk =>
@@ -199,6 +211,23 @@ export const DeletePackTC = (id: string): AppThunk => (dispatch) => {
     cardsApi.deletePack(id)
         .then(() => {
             dispatch(deletePackAC(id))
+            dispatch(FetchCardsTC())
+        })
+        .catch((err) => {
+            handleServerError(err, dispatch)
+        })
+        .finally(() => {
+            dispatch(setStatusAppAC(false))
+        })
+
+}
+
+export const UpdatePackTC = (id: string): AppThunk => (dispatch) => {
+    dispatch(setStatusAppAC(true))
+    const name="HAHAHAHAHAHA"
+    cardsApi.updatePack(id,name)
+        .then(() => {
+            // dispatch(updatePackAC(id,name))
             dispatch(FetchCardsTC())
         })
         .catch((err) => {

@@ -17,7 +17,7 @@ import {
     SetCardsDataType,
     SetCardsType,
     SetPageCountType,
-    SetPageType
+    SetPageType, UpdatePackType
 } from "./cards-reducer";
 
 import {packCardsReducer} from "./packCards-reducer";
@@ -53,6 +53,7 @@ export type AppActionsType = SetLoggedInType
     | SetPageCountType
     | IdFilterPackType
     | DeletePackType
+    | UpdatePackType
 export type AppStateType = ReturnType<typeof rootReducer>
 // export type AppActionsType
 // @ts-ignore

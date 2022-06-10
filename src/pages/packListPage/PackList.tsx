@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import {useSelector} from "react-redux";
-import {DeletePackTC, FetchCardsTC} from "../../reducers/cards-reducer";
+import {DeletePackTC, FetchCardsTC, UpdatePackTC} from "../../reducers/cards-reducer";
 import {CardPacksType} from "../../API/cards-api";
 import {AppStateType, useAppDispatch} from "../../reducers/store";
 import {Navigate, useNavigate} from "react-router-dom";
@@ -18,6 +18,10 @@ const PackList = () => {
 
     const deletePackHandler = (id:string) => {
         dispatch(DeletePackTC(id))
+
+    }
+    const updatePackHandler = (id:string) => {
+        dispatch(UpdatePackTC(id))
 
     }
 
@@ -53,6 +57,7 @@ const PackList = () => {
                     <div style={{width: '250px'}}>{card.updated}</div>
 
                     <Button onClick={()=>deletePackHandler(card._id)}>Del</Button>
+                    <Button onClick={()=>updatePackHandler(card._id)}>Update</Button>
                 </div>
 
             })}
