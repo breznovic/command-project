@@ -1,23 +1,25 @@
 import React from 'react';
 import {useFormik} from "formik";
-import {LoginTC} from "../../reducers/auth-reducer";
-import {Navigate} from "react-router-dom";
+import {ResetPasswordTC} from "../../reducers/auth-reducer";
 import Input from "../../common/input/Input";
-import Checkbox from "../../common/checkbox/Checkbox";
 import Button from "../../common/button/Button";
+import {useAppDispatch} from "../../reducers/store";
 
 type FormikErrorType = {
-
     email?: string
-
+    // password?: string
+    // rememberMe?: boolean
 }
 
 const NewPassword = () => {
+
+    const dispatch = useAppDispatch()
+
     const formik = useFormik({
         initialValues: {
-
             email: '',
-
+            from: '',
+            message: '',
         },
         validate: (values) => {
             const errors: FormikErrorType = {};
@@ -30,19 +32,17 @@ const NewPassword = () => {
 
         },
         onSubmit: values => {
-
+            dispatch(ResetPasswordTC(values));
+            formik.resetForm()
         },
     })
 
     return <form onSubmit={formik.handleSubmit}>
         <div>
-
             <h2>New Password</h2>
-
-
             <Input placeholder={'email'}
-                   {...formik.getFieldProps("newPassword")}
-
+                   // newPassword
+                   {...formik.getFieldProps("email")}
             />
         </div>
         {formik.touched.email &&
@@ -53,9 +53,7 @@ const NewPassword = () => {
         <Button>
             Send Letter
         </Button>
-
     </form>
-
-};
+}
 
 export default NewPassword;

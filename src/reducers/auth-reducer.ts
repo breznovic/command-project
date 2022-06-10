@@ -1,11 +1,10 @@
-import {authApi, ForgotLoginType, LoginParamsType, RegisterParamsType, UpdateMeType} from "../API/user-api";
+import {authApi, ForgotLoginType, LoginParamsType, RegisterParamsType, UpdateMeType, NewPasswordType} from "../API/user-api";
 import {AppThunk} from "./store";
 
 import {setStatusAppAC} from "./app-reducer";
 
 
 import {handleServerError} from "../error-utils/error";
-
 
 export type ProfileType = {
     _id: string,
@@ -60,6 +59,7 @@ type GeneralType = SetLoggedInType
     | SetLoginDataACType
     | UpdateUserParamsType
     | ForgotPasswordType
+    | SetNewPasswordType
 
 export const authReducer = (state: InitialStateType = initialState, action: GeneralType): InitialStateType => {
     switch (action.type) {
@@ -80,6 +80,9 @@ export const authReducer = (state: InitialStateType = initialState, action: Gene
             return {...state, profile: {...state.profile, name: action.name, avatar: action.avatar}}
         }
         case "login/FORGOT-PASSWORD": {
+            return {...state, sendSuccess: action.sendSuccess}
+        }
+        case "login/NEW-PASSWORD": {
             return {...state, sendSuccess: action.sendSuccess}
         }
 
@@ -141,8 +144,16 @@ export const forgotPasswordAC = (sendSuccess: boolean) => {
     } as const
 }
 
+export type SetNewPasswordType = ReturnType<typeof setNewPasswordAC>
+export const setNewPasswordAC = (sendSuccess: boolean) => {
+    return {
+        type: 'login/NEW-PASSWORD',
+        sendSuccess
+    } as const
+}
+
 export const LoginTC = (data: LoginParamsType): AppThunk => (dispatch) => {
-    debugger
+    //debugger
     dispatch(setStatusAppAC(true)) //статус выполнения для крутилки
     authApi.login(data)
         .then((res) => {
@@ -230,16 +241,30 @@ export const UpdateUserTC = (data: UpdateMeType): AppThunk => (dispatch) => {
 }
 
 
-export const ResetPasswordTC = (data: ForgotLoginType): AppThunk => (dispatch) => {
+export const ResetPasswordTC = (data: ForgotLoginType): AppThunk => (dispatch) => { /* ----- */
     dispatch(setStatusAppAC(true))
     authApi.forgotLogin(data)
         .then((res) => {
             // dispatch(forgotPasswordAC(res.data))
         })
-        .catch(()=>{
+        .catch(() => {
 
         })
-        .finally(()=>{
+        .finally(() => {
+            dispatch(setStatusAppAC(false))
+        })
+}
+
+export const SetNewPasswordTC = (data: NewPasswordType): AppThunk => (dispatch) => {
+    dispatch(setStatusAppAC(true))
+    authApi.newPassword(data)
+        .then((res) => {
+            // dispatch(forgotPasswordAC(res.data))
+        })
+        .catch(() => {
+
+        })
+        .finally(() => {
             dispatch(setStatusAppAC(false))
         })
 }
