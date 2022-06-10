@@ -3,7 +3,7 @@ import {AppStateType, AppThunk} from "./store";
 import {setStatusAppAC} from "./app-reducer";
 import {handleServerError} from "../error-utils/error";
 //'6294929e49512003102e64c2' id Maslo
-type FilterPacksType="all"|"my"
+type FilterPacksType = "all" | "my"
 const initialState = {
     cardPacks: [{
         _id: '',
@@ -62,6 +62,7 @@ export type GeneralActionType = SetCardsType
     | SetPageType
     | SetPageCountType
     | IdFilterPackType
+    | DeletePackType
 
 export const cardsReducer = (state: InitialStateType = initialState, action: GeneralActionType): InitialStateType => {
     switch (action.type) {
@@ -74,12 +75,15 @@ export const cardsReducer = (state: InitialStateType = initialState, action: Gen
         case "pack/SET-PAGE": {
             return {...state, params: state.params, page: action.page}
         }
-        case "pack/ID-FILTER-PACK":{
+        case "pack/ID-FILTER-PACK": {
             return {...state,}
         }
-        case "pack/ADD-CARDS":{
+        case "pack/ADD-CARDS": {
             let pack = {name: action.name}
-            return{...state,cardPacks:{...state.cardPacks,...pack}}
+            return {...state, cardPacks: {...state.cardPacks, ...pack}}
+        }
+        case "pack/DELETE-PACK":{
+            return{...state,cardPacks: state.cardPacks.filter(f=>f._id!==action.id)}
         }
         default:
             return state
@@ -128,9 +132,16 @@ export const setPageCountAC = (pageCount: number) => { // изменение с�
     } as const
 }
 export type IdFilterPackType = ReturnType<typeof idFilterPackAC>
-export const idFilterPackAC = (id: string) => { // изменение страницы
+export const idFilterPackAC = (id: string) => {
     return {
         type: 'pack/ID-FILTER-PACK',
+        id
+    } as const
+}
+export type DeletePackType = ReturnType<typeof deletePackAC>
+export const deletePackAC = (id: string) => { // удаление пака
+    return {
+        type: 'pack/DELETE-PACK',
         id
     } as const
 }
@@ -173,14 +184,31 @@ export const CreateCardsTC = (): AppThunk =>
 
                 dispatch(FetchCardsTC())
             })
-            .catch(() => {
-
+            .catch((err) => {
+                handleServerError(err, dispatch)
             })
             .finally(() => {
                 dispatch(setStatusAppAC(false))
             })
 
     }
+
+
+export const DeletePackTC = (id: string): AppThunk => (dispatch) => {
+    dispatch(setStatusAppAC(true))
+    cardsApi.deletePack(id)
+        .then(() => {
+            dispatch(deletePackAC(id))
+            dispatch(FetchCardsTC())
+        })
+        .catch((err) => {
+            handleServerError(err, dispatch)
+        })
+        .finally(() => {
+            dispatch(setStatusAppAC(false))
+        })
+
+}
 
 
 

@@ -1,11 +1,12 @@
 import React, {useEffect} from 'react';
 import {useSelector} from "react-redux";
-import {FetchCardsTC} from "../../reducers/cards-reducer";
+import {DeletePackTC, FetchCardsTC} from "../../reducers/cards-reducer";
 import {CardPacksType} from "../../API/cards-api";
 import {AppStateType, useAppDispatch} from "../../reducers/store";
 import {Navigate, useNavigate} from "react-router-dom";
 import style from './PackList.module.css'
 import FilterForId from "./filterForId/FilterForId";
+import Button from "../../common/button/Button";
 
 const PackList = () => {
     const navigate = useNavigate()
@@ -14,8 +15,10 @@ const PackList = () => {
     const cards = useSelector<AppStateType, CardPacksType[]>(state => state.cardPacks.cardPacks)
     const pageCount = useSelector<AppStateType, number>(state => state.cardPacks.params.pageCount)
 
-    const onClickHandler = () => {
-        dispatch(FetchCardsTC())
+
+    const deletePackHandler = (id:string) => {
+        dispatch(DeletePackTC(id))
+
     }
 
     useEffect(() => {
@@ -49,13 +52,14 @@ const PackList = () => {
                     <div style={{width: '250px'}}>{card.cardsCount}</div>
                     <div style={{width: '250px'}}>{card.updated}</div>
 
+                    <Button onClick={()=>deletePackHandler(card._id)}>Del</Button>
                 </div>
 
             })}
             <div className={style.pageCount}>
                 {currentPage.map((page) => {
                     return <span
-                        onClick={onClickHandler}
+
                     >
 {page}
                 </span>
