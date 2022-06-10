@@ -5,6 +5,7 @@ import {CardPacksType} from "../../API/cards-api";
 import {AppStateType, useAppDispatch} from "../../reducers/store";
 import {Navigate} from "react-router-dom";
 import style from './PackList.module.css'
+import FilterForId from "./filterForId/FilterForId";
 
 const PackList = () => {
     const dispatch = useAppDispatch()
@@ -34,6 +35,7 @@ const PackList = () => {
     return (
 
         <div>
+
 
             {cards.map(card => {
 

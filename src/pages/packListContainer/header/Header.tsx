@@ -5,6 +5,7 @@ import {AppStateType, useAppDispatch} from "../../../reducers/store";
 import {CreateCardsTC} from "../../../reducers/cards-reducer";
 import {useSelector} from "react-redux";
 import {CardPacksType} from "../../../API/cards-api";
+import FilterForId from "../../packListPage/filterForId/FilterForId";
 const HeaderPack = () => {
     const dispatch = useAppDispatch()
     // const name=useSelector<AppStateType,CardPacksType[]>(state=>state.cardPacks)
@@ -15,6 +16,10 @@ const HeaderPack = () => {
 
 
     return (
+        <div>
+            <div>
+                <FilterForId/>
+            </div>
 
              <div className={style.PackListContainer}>
 
@@ -27,7 +32,7 @@ const HeaderPack = () => {
                      <Button onClick={addPack} >Add Card</Button>
                  </div>
                 </div>
-
+        </div>
 
     );
 };
