@@ -1,0 +1,83 @@
+Index: src/header/Header.tsx
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import React from 'react';\nimport {NavLink} from \"react-router-dom\";\nimport s from './Header.module.css'\nimport {PATH} from \"../pages/Pages\";\n\nconst Header = () => {\n    return (\n        <div className={s.container}>\n            <div className={s.pages}>\n                <NavLink to={PATH.login} className={({isActive}) => (isActive ? s.active : s.item)}>Log in</NavLink>\n                <NavLink to={PATH.signup} className={({isActive}) => (isActive ? s.active : s.item)}>Sign up</NavLink>\n                <NavLink to={PATH.profile} className={({isActive}) => (isActive ? s.active : s.item)}>Profile</NavLink>\n                <NavLink to={PATH.newPassword}\n                         className={({isActive}) => (isActive ? s.active : s.item)}>Password</NavLink>\n                <NavLink to={PATH.resetPassword}\n                         className={({isActive}) => (isActive ? s.active : s.item)}>Reset</NavLink>\n                <NavLink to={PATH.error} className={({isActive}) => (isActive ? s.active : s.item)}>404</NavLink>\n                <NavLink to={PATH.test} className={({isActive}) => (isActive ? s.active : s.item)}>Test</NavLink>\n            </div>\n        </div>\n    );\n};\n\nexport default Header;
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/header/Header.tsx b/src/header/Header.tsx
+--- a/src/header/Header.tsx	(revision ef2253bdca90bb3e1ee10540e632d46a6dc48dc8)
++++ b/src/header/Header.tsx	(date 1654516052679)
+@@ -12,7 +12,7 @@
+                 <NavLink to={PATH.profile} className={({isActive}) => (isActive ? s.active : s.item)}>Profile</NavLink>
+                 <NavLink to={PATH.newPassword}
+                          className={({isActive}) => (isActive ? s.active : s.item)}>Password</NavLink>
+-                <NavLink to={PATH.resetPassword}
++                <NavLink to={PATH.restorePassword}
+                          className={({isActive}) => (isActive ? s.active : s.item)}>Reset</NavLink>
+                 <NavLink to={PATH.error} className={({isActive}) => (isActive ? s.active : s.item)}>404</NavLink>
+                 <NavLink to={PATH.test} className={({isActive}) => (isActive ? s.active : s.item)}>Test</NavLink>
+Index: src/pages/p5-reset/ResetPassword.tsx
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/pages/p5-reset/ResetPassword.tsx b/src/pages/p5-reset/RestorePassword.tsx
+rename from src/pages/p5-reset/ResetPassword.tsx
+rename to src/pages/p5-reset/RestorePassword.tsx
+--- a/src/pages/p5-reset/ResetPassword.tsx	(revision ef2253bdca90bb3e1ee10540e632d46a6dc48dc8)
++++ b/src/pages/p5-reset/RestorePassword.tsx	(date 1654516052687)
+@@ -1,11 +1,11 @@
+ import React from 'react';
+ 
+-const ResetPassword = () => {
++const RestorePassword = () => {
+     return (
+         <div>
+-            Reset your password
++            Restore your password
+         </div>
+     );
+ };
+ 
+-export default ResetPassword;
+\ No newline at end of file
++export default RestorePassword;
+\ No newline at end of file
+Index: src/pages/Pages.tsx
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import React from 'react';\nimport {Route, Routes} from \"react-router-dom\";\nimport Test from \"./p7-test/Test\";\nimport Profile from \"./p3-profile/Profile\";\nimport Login from \"./p1-login/Login\";\nimport Signup from \"./p2-signup/Signup\";\nimport NewPassword from \"./p4-new-password/NewPassword\";\nimport ResetPassword from \"./p5-reset/ResetPassword\";\nimport Error404 from \"./p6-error/404\";\nimport s from './Pages.module.css'\n\nexport const PATH = {\n    login: 'login',\n    signup: 'signup',\n    profile: 'profile',\n    newPassword: 'new-password',\n    resetPassword: 'reset-password',\n    error: '404',\n    test: 'test'\n}\n\nconst Pages = () => {\n    return (\n        <div className={s.pagesContainer}>\n            <Routes>\n                <Route path={'/'} element={<Test/>}/>\n                <Route path={PATH.login} element={<Login/>}/>\n                <Route path={PATH.signup} element={<Signup/>}/>\n                <Route path={PATH.profile} element={<Profile/>}/>\n                <Route path={PATH.newPassword} element={<NewPassword/>}/>\n                <Route path={PATH.resetPassword} element={<ResetPassword/>}/>\n                <Route path={PATH.error} element={<Error404/>}/>\n                <Route path={PATH.test} element={<Test/>}/>\n                <Route path={'*'} element={<Error404/>}/>\n            </Routes>\n        </div>\n    );\n};\n\nexport default Pages;
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/pages/Pages.tsx b/src/pages/Pages.tsx
+--- a/src/pages/Pages.tsx	(revision ef2253bdca90bb3e1ee10540e632d46a6dc48dc8)
++++ b/src/pages/Pages.tsx	(date 1654516052683)
+@@ -5,7 +5,7 @@
+ import Login from "./p1-login/Login";
+ import Signup from "./p2-signup/Signup";
+ import NewPassword from "./p4-new-password/NewPassword";
+-import ResetPassword from "./p5-reset/ResetPassword";
++import RestorePassword from "./p5-reset/RestorePassword";
+ import Error404 from "./p6-error/404";
+ import s from './Pages.module.css'
+ 
+@@ -14,7 +14,7 @@
+     signup: 'signup',
+     profile: 'profile',
+     newPassword: 'new-password',
+-    resetPassword: 'reset-password',
++    restorePassword: 'reset-password',
+     error: '404',
+     test: 'test'
+ }
+@@ -28,7 +28,7 @@
+                 <Route path={PATH.signup} element={<Signup/>}/>
+                 <Route path={PATH.profile} element={<Profile/>}/>
+                 <Route path={PATH.newPassword} element={<NewPassword/>}/>
+-                <Route path={PATH.resetPassword} element={<ResetPassword/>}/>
++                <Route path={PATH.restorePassword} element={<RestorePassword/>}/>
+                 <Route path={PATH.error} element={<Error404/>}/>
+                 <Route path={PATH.test} element={<Test/>}/>
+                 <Route path={'*'} element={<Error404/>}/>
