@@ -13,7 +13,7 @@ export const ErrorSnackbar = () => {
         if (error) {
             const timer = setTimeout(() => {
                 dispatch(setErrorAppAC(''))
-                dispatch(setLoggedInAC(false))
+                // dispatch(setLoggedInAC(false))
             }, 4500)
             return () => clearTimeout(timer)
         }

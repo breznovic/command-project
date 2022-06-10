@@ -8,11 +8,8 @@ import NewPassword from "./p4-new-password/NewPassword";
 import RestorePassword from "./p5-reset/RestorePassword";
 import Error404 from "./p6-error/404";
 import s from './Pages.module.css'
-import CircularProgress from "@mui/material/CircularProgress";
-import {useSelector} from "react-redux";
-import {AppStateType} from "../reducers/store";
-import PackList from "./packListPage/PackList";
 import PackListContainer from "./packListContainer/PackListContainer";
+import CardsListContainer from './cardsListContainer/CardsListContainer';
 
 export const PATH = {
     login: 'login',
@@ -22,7 +19,7 @@ export const PATH = {
     restorePassword: 'reset-password',
     error: '404',
     test: 'test',
-    packList: 'pack-list'
+    packList: 'pack-list',
 }
 
 const Pages = () => {
@@ -37,6 +34,7 @@ const Pages = () => {
                 <Route path={PATH.profile} element={<Profile/>}/>
                 <Route path={PATH.newPassword} element={<NewPassword/>}/>
                 <Route path={PATH.packList} element={<PackListContainer/>}/>
+                <Route path={PATH.packList + '/:pack_id'} element={<CardsListContainer/>}/>
                 <Route path={PATH.restorePassword} element={<RestorePassword/>}/>
                 <Route path={PATH.error} element={<Error404/>}/>
                 <Route path={PATH.test} element={<Test/>}/>

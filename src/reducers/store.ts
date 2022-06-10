@@ -11,12 +11,14 @@ import {
 import {useDispatch} from "react-redux";
 import {appReducer, SetErrorAppType, SetStatusAppType} from "./app-reducer";
 import {AddCardsType, cardsReducer, SetCardsDataType, SetCardsType, SetPageCount, SetPageType} from "./cards-reducer";
+import {packCardsReducer} from "./packCards-reducer";
 
 
 const rootReducer = combineReducers({
     auth: authReducer,
     app: appReducer,
-    cardPacks: cardsReducer
+    cardPacks: cardsReducer,
+    cards: packCardsReducer,
 })
 
 export const store = createStore(rootReducer, applyMiddleware(thunk))
