@@ -1,13 +1,14 @@
 import React, {useEffect} from 'react';
-import {useDispatch, useSelector} from "react-redux";
-import {CardsDataType, FetchCardsTC, InitialStateType, setPageCountAC} from "../../reducers/cards-reducer";
+import {useSelector} from "react-redux";
+import {FetchCardsTC} from "../../reducers/cards-reducer";
 import {CardPacksType} from "../../API/cards-api";
 import {AppStateType, useAppDispatch} from "../../reducers/store";
-import {Navigate} from "react-router-dom";
+import {Navigate, useNavigate} from "react-router-dom";
 import style from './PackList.module.css'
 import FilterForId from "./filterForId/FilterForId";
 
 const PackList = () => {
+    const navigate = useNavigate()
     const dispatch = useAppDispatch()
     const isLoggedIn = useSelector<AppStateType, boolean>(state => state.auth.isLoggedIn)
     const cards = useSelector<AppStateType, CardPacksType[]>(state => state.cardPacks.cardPacks)
@@ -38,10 +39,13 @@ const PackList = () => {
 
 
             {cards.map(card => {
+                const setChangePageToCard = () => {
+                    navigate(`${card._id}`)
+                }
 
                 return <div key={card._id} className={style.packList}>
 
-                    <div style={{width: '250px'}}>{card.name}</div>
+                    <div onClick={setChangePageToCard} style={{width: '250px'}}>{card.name}</div>
                     <div style={{width: '250px'}}>{card.cardsCount}</div>
                     <div style={{width: '250px'}}>{card.updated}</div>
 
