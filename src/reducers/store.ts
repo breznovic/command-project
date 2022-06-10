@@ -19,8 +19,9 @@ import {
     SetPageCountType,
     SetPageType
 } from "./cards-reducer";
-import {AddCardsType, cardsReducer, SetCardsDataType, SetCardsType, SetPageCount, SetPageType} from "./cards-reducer";
+
 import {packCardsReducer} from "./packCards-reducer";
+
 
 
 const rootReducer = combineReducers({
