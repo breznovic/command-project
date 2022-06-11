@@ -14,13 +14,16 @@ const PackList = () => {
     const isLoggedIn = useSelector<AppStateType, boolean>(state => state.auth.isLoggedIn)
     const cards = useSelector<AppStateType, CardPacksType[]>(state => state.cardPacks.cardPacks)
     const pageCount = useSelector<AppStateType, number>(state => state.cardPacks.params.pageCount)
+    const packPage = useSelector<AppStateType, number>(state => state.cardPacks.params.page)
 
-
-    const deletePackHandler = (id:string) => {
+    const setNewPageHandler = () => {
+        dispatch(FetchCardsTC())
+    }
+    const deletePackHandler = (id: string) => {
         dispatch(DeletePackTC(id))
 
     }
-    const updatePackHandler = (id:string) => {
+    const updatePackHandler = (id: string) => {
         dispatch(UpdatePackTC(id))
 
     }
@@ -56,15 +59,17 @@ const PackList = () => {
                     <div style={{width: '250px'}}>{card.cardsCount}</div>
                     <div style={{width: '250px'}}>{card.updated}</div>
 
-                    <Button onClick={()=>deletePackHandler(card._id)}>Del</Button>
-                    <Button onClick={()=>updatePackHandler(card._id)}>Update</Button>
+                    <Button onClick={() => deletePackHandler(card._id)}>Del</Button>
+                    <Button onClick={() => updatePackHandler(card._id)}>Update</Button>
                 </div>
 
             })}
             <div className={style.pageCount}>
                 {currentPage.map((page) => {
-                    return <span
 
+                    return <span
+                        className={packPage === page ? style.pages : ''}
+                        onClick={setNewPageHandler}
                     >
 {page}
                 </span>

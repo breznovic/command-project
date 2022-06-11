@@ -23,7 +23,7 @@ const initialState = {
     page: 1,// выбранная страница
     pageCount: 0,
     params: {
-        page: 2,
+        page: 1,
         user_id: '',
         sortPacks: '',
         pageCount: 10
@@ -74,7 +74,8 @@ export const cardsReducer = (state: InitialStateType = initialState, action: Gen
             return {...state, ...action.cardsData}
         }
         case "pack/SET-PAGE": {
-            return {...state, params: state.params, page: action.page}
+            return {...state,page:action.page}
+            // return {...state, params: state.params, page: action.page}
         }
         case "pack/ID-FILTER-PACK": {
             return {...state,}
@@ -122,10 +123,10 @@ export const addCardsAC = (name: string) => { //добавляем карточ�
     } as const
 }
 export type SetPageType = ReturnType<typeof setPageAC>
-export const setPageAC = (page: number) => { // изменение страницы
+export const setPageAC = (page:number) => { // изменение страницы
     return {
         type: 'pack/SET-PAGE',
-        page
+       page
     } as const
 }
 export type SetPageCountType = ReturnType<typeof setPageCountAC>
@@ -167,11 +168,12 @@ export const FetchCardsTC = (): AppThunk =>
             const params: PacksParamsType = {
                 page: cardsData.page,
                 pageCount: cardsData.pageCount,
-                user_id: cardsData.user_id
+
 
             }
             cardsApi.getPacks(params)
                 .then((res) => {
+                    debugger
 
                     dispatch(setCardsAC(res.data.cardPacks))
                     dispatch(setPageAC(res.data.page))
