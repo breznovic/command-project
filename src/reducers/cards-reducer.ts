@@ -13,20 +13,18 @@ const initialState = {
         created: '',
         updated: '',
     }],
-    /* params: {
-    page: 5, userId: sdskfns, sort: '0updated'
-}*/
-    cardPacksTotalCount: 10,
+
+    cardPacksTotalCount: 20,
     // количество колод
     maxCardsCount: 0,
     minCardsCount: 0,
     page: 1,// выбранная страница
-    pageCount: 0,
+    pageCount: 10,
     params: {
         page: 1,
         user_id: '',
         sortPacks: '',
-        pageCount: 10
+        pageCount: 1
     },
     // filterPacks:'all'
 }
@@ -70,9 +68,9 @@ export const cardsReducer = (state: InitialStateType = initialState, action: Gen
         case "packs/SET-CARDS": {
             return {...state, cardPacks: action.cardPacks}
         }
-        // case "packs/SET-CARDS-DATA": {
-        //     return {...state, ...action.cardsData}
-        // }
+        case "pack/SET-PAGE-COUNT": {
+            return {...state, pageCount: action.pageCount}
+        }
         case "pack/SET-PAGE": {
             return {...state, page: action.page}
             // return {...state, params: state.params, page: action.page}
@@ -88,7 +86,7 @@ export const cardsReducer = (state: InitialStateType = initialState, action: Gen
             return {...state, cardPacks: state.cardPacks.filter(f => f._id !== action.id)}
         }
         case "pack/UPDATE-PACK": {
-            return {...state, cardPacks: state.cardPacks.map(m=>m._id===action.id?{...m,name:action.name}:m)}
+            return {...state, cardPacks: state.cardPacks.map(m => m._id === action.id ? {...m, name: action.name} : m)}
         }
         default:
             return state
@@ -166,8 +164,8 @@ export const FetchCardsTC = (): AppThunk =>
         let cardsData = getState().cardPacks.params
         if (cardsData) {
             const params: PacksParamsType = {
-                page: cardsData.page,
-                pageCount: cardsData.pageCount,
+                page: getState().cardPacks.page,
+                pageCount: getState().cardPacks.pageCount,
                 // user_id:cardsData.user_id
 
 
@@ -177,7 +175,8 @@ export const FetchCardsTC = (): AppThunk =>
                     dispatch(setStatusAppAC(true))
 
                     dispatch(setCardsAC(res.data.cardPacks))
-                    dispatch(setPageAC(res.data.page))
+                    dispatch(setPageCountAC(res.data.pageCount))
+                    //dispatch(setPageAC(res.data.page))
                 })
                 .catch((err) => {
                     handleServerError(err, dispatch)

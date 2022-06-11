@@ -31,7 +31,7 @@ export type PacksParamsType = {
     max?: number // не обязательно
     sortPacks?: number// не обязательно
     page: number // не обязательно
-    pageCount?: number // не обязательно
+    pageCount: number // не обязательно
 
 
     user_id?: string
