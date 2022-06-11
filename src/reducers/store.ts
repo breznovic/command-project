@@ -14,7 +14,7 @@ import {
     AddCardsType,
     cardsReducer, DeletePackType,
     IdFilterPackType,
-    SetCardsDataType,
+    // SetCardsDataType,
     SetCardsType,
     SetPageCountType,
     SetPageType, UpdatePackType
@@ -48,7 +48,7 @@ export type AppActionsType = SetLoggedInType
     | ForgotPasswordType
     | SetCardsType
     | AddCardsType
-    | SetCardsDataType
+    // | SetCardsDataType
     | SetPageType
     | SetPageCountType
     | IdFilterPackType

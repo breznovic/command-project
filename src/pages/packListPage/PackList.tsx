@@ -1,11 +1,11 @@
 import React, {useEffect} from 'react';
 import {useSelector} from "react-redux";
-import {DeletePackTC, FetchCardsTC, UpdatePackTC} from "../../reducers/cards-reducer";
+import {DeletePackTC, FetchCardsTC, setCardsAC, setPageAC, UpdatePackTC} from "../../reducers/cards-reducer";
 import {CardPacksType} from "../../API/cards-api";
 import {AppStateType, useAppDispatch} from "../../reducers/store";
 import {Navigate, useNavigate} from "react-router-dom";
 import style from './PackList.module.css'
-import FilterForId from "./filterForId/FilterForId";
+
 import Button from "../../common/button/Button";
 
 const PackList = () => {
@@ -17,7 +17,7 @@ const PackList = () => {
     const packPage = useSelector<AppStateType, number>(state => state.cardPacks.params.page)
 
     const setNewPageHandler = () => {
-        dispatch(FetchCardsTC())
+       dispatch(FetchCardsTC())
     }
     const deletePackHandler = (id: string) => {
         dispatch(DeletePackTC(id))

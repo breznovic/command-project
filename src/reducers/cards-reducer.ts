@@ -58,7 +58,7 @@ export type CardsDataType = {
 }
 export type GeneralActionType = SetCardsType
     | AddCardsType
-    | SetCardsDataType
+    // | SetCardsDataType
     | SetPageType
     | SetPageCountType
     | IdFilterPackType
@@ -70,11 +70,11 @@ export const cardsReducer = (state: InitialStateType = initialState, action: Gen
         case "packs/SET-CARDS": {
             return {...state, cardPacks: action.cardPacks}
         }
-        case "packs/SET-CARDS-DATA": {
-            return {...state, ...action.cardsData}
-        }
+        // case "packs/SET-CARDS-DATA": {
+        //     return {...state, ...action.cardsData}
+        // }
         case "pack/SET-PAGE": {
-            return {...state,page:action.page}
+            return {...state, page: action.page}
             // return {...state, params: state.params, page: action.page}
         }
         case "pack/ID-FILTER-PACK": {
@@ -87,9 +87,9 @@ export const cardsReducer = (state: InitialStateType = initialState, action: Gen
         case "pack/DELETE-PACK": {
             return {...state, cardPacks: state.cardPacks.filter(f => f._id !== action.id)}
         }
-        // case "pack/UPDATE-PACK": {
-        //     return {...state, cardPacks: state.cardPacks.map(m=>m._id===action.id?{...m,name:action.name}:m)}
-        // }
+        case "pack/UPDATE-PACK": {
+            return {...state, cardPacks: state.cardPacks.map(m=>m._id===action.id?{...m,name:action.name}:m)}
+        }
         default:
             return state
     }
@@ -105,14 +105,14 @@ export const setCardsAC = (cardPacks: CardPacksType[]) => { //отображае
 
 }
 
-export type SetCardsDataType = ReturnType<typeof setCardsDataAC>
-export const setCardsDataAC = (cardsData: CardsDataType) => {
-    return {
-        type: 'packs/SET-CARDS-DATA',
-        cardsData
-    } as const
+// export type SetCardsDataType = ReturnType<typeof setCardsDataAC>
+// export const setCardsDataAC = (cardsData: CardsDataType) => {
+//     return {
+//         type: 'packs/SET-CARDS-DATA',
+//         cardsData
+//     } as const
 
-}
+// }
 
 
 export type AddCardsType = ReturnType<typeof addCardsAC>
@@ -123,10 +123,10 @@ export const addCardsAC = (name: string) => { //добавляем карточ�
     } as const
 }
 export type SetPageType = ReturnType<typeof setPageAC>
-export const setPageAC = (page:number) => { // изменение страницы
+export const setPageAC = (page: number) => { // изменение страницы
     return {
         type: 'pack/SET-PAGE',
-       page
+        page
     } as const
 }
 export type SetPageCountType = ReturnType<typeof setPageCountAC>
@@ -168,12 +168,13 @@ export const FetchCardsTC = (): AppThunk =>
             const params: PacksParamsType = {
                 page: cardsData.page,
                 pageCount: cardsData.pageCount,
+                // user_id:cardsData.user_id
 
 
             }
             cardsApi.getPacks(params)
                 .then((res) => {
-                    debugger
+                    dispatch(setStatusAppAC(true))
 
                     dispatch(setCardsAC(res.data.cardPacks))
                     dispatch(setPageAC(res.data.page))
@@ -197,6 +198,7 @@ export const CreateCardsTC = (): AppThunk =>
             .then((res) => {
 
                 dispatch(FetchCardsTC())
+                dispatch(setStatusAppAC(true))
             })
             .catch((err) => {
                 handleServerError(err, dispatch)
@@ -212,6 +214,7 @@ export const DeletePackTC = (id: string): AppThunk => (dispatch) => {
     dispatch(setStatusAppAC(true))
     cardsApi.deletePack(id)
         .then(() => {
+            dispatch(setStatusAppAC(true))
             dispatch(deletePackAC(id))
             dispatch(FetchCardsTC())
         })
@@ -226,9 +229,10 @@ export const DeletePackTC = (id: string): AppThunk => (dispatch) => {
 
 export const UpdatePackTC = (id: string): AppThunk => (dispatch) => {
     dispatch(setStatusAppAC(true))
-    const name="HAHAHAHAHAHA"
-    cardsApi.updatePack(id,name)
+    const name = "HAHAHAHAHAHA"
+    cardsApi.updatePack(id, name)
         .then(() => {
+            dispatch(setStatusAppAC(true))
             // dispatch(updatePackAC(id,name))
             dispatch(FetchCardsTC())
         })
