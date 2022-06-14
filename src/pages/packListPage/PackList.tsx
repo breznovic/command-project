@@ -17,7 +17,7 @@ const PackList = () => {
     const pageCount = useSelector<AppStateType, number>(state => state.cardPacks.pageCount)
     const packPage = useSelector<AppStateType, number>(state => state.cardPacks.page)
     const totalCount = useSelector<AppStateType, number>(state => state.cardPacks.cardPacksTotalCount)
-
+    const userId = useSelector<AppStateType, string>(state => state.cardPacks.params.user_id)
     console.log("pageCount", pageCount)
 
     const setNewPageHandler = (page: number) => {
@@ -35,7 +35,7 @@ const PackList = () => {
 
         if (isLoggedIn)
             dispatch(FetchCardsTC())
-    }, [packPage])
+    }, [packPage,userId])
 
     if (!isLoggedIn) {
         return <Navigate to={'/login'}/>
@@ -66,7 +66,7 @@ const PackList = () => {
 
             <Pagination packPage={packPage}
                         pageCount={pageCount}
-                        callback={(page)=>setNewPageHandler(page)}
+                        callback={(page) => setNewPageHandler(page)}
                         totalCount={totalCount}
             />
 

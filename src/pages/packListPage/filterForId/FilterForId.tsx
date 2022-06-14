@@ -7,11 +7,12 @@ import {CardPacksType} from "../../../API/cards-api";
 
 const FilterForId = () => {
     const dispatch = useAppDispatch()
-    const userId = useSelector<AppStateType, CardPacksType[]>(state => state.cardPacks.cardPacks.filter(pack => pack.user_id))
-    console.log("userId",userId)
+    const userId=useSelector<AppStateType, string>(state => state.auth.profile._id)
+
     const filterHandler = () => {
-        // dispatch(idFilterPackAC(userId))
-        dispatch(FetchCardsTC())
+
+        dispatch(idFilterPackAC(userId))
+
     }
 
 

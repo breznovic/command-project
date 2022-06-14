@@ -2,10 +2,6 @@ import React from 'react';
 import CardsList from "../cardsListPage/CardsList";
 import HeaderPack from "./header/Header";
 import {Navigate, NavLink, useNavigate} from "react-router-dom";
-import {PATH} from "../Pages";
-import PackList from "../packListPage/PackList";
-import {useAppDispatch} from "../../reducers/store";
-import {FetchCardsTC} from "../../reducers/cards-reducer";
 
 
 const CardsListContainer = () => {

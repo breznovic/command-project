@@ -14,7 +14,7 @@ import {
     AddCardsType,
     cardsReducer, DeletePackType,
     IdFilterPackType,
-    // SetCardsDataType,
+
     SetCardsType,
     SetPageCountType,
     SetPageType, UpdatePackType

@@ -34,7 +34,7 @@ export type PacksParamsType = {
     pageCount: number // не обязательно
 
 
-    user_id?: string
+    user_id: string
 }
 export type CardPacksType = {
     _id: string

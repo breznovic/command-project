@@ -56,7 +56,7 @@ export type CardsDataType = {
 }
 export type GeneralActionType = SetCardsType
     | AddCardsType
-    // | SetCardsDataType
+
     | SetPageType
     | SetPageCountType
     | IdFilterPackType
@@ -76,13 +76,17 @@ export const cardsReducer = (state: InitialStateType = initialState, action: Gen
             // return {...state, params: state.params, page: action.page}
         }
         case "pack/ID-FILTER-PACK": {
-            return {...state,cardPacks: state.cardPacks.filter(f=>f.user_id!==action.id)}
+
+            return {
+               ...state,params:{...state.params,user_id:action.id} }
+
         }
         case "pack/ADD-CARDS": {
             let pack = {name: action.name}
             return {...state, cardPacks: {...state.cardPacks, ...pack}}
         }
         case "pack/DELETE-PACK": {
+
             return {...state, cardPacks: state.cardPacks.filter(f => f._id !== action.id)}
         }
         case "pack/UPDATE-PACK": {
@@ -102,15 +106,6 @@ export const setCardsAC = (cardPacks: CardPacksType[]) => { //отображае
     } as const
 
 }
-
-// export type SetCardsDataType = ReturnType<typeof setCardsDataAC>
-// export const setCardsDataAC = (cardsData: CardsDataType) => {
-//     return {
-//         type: 'packs/SET-CARDS-DATA',
-//         cardsData
-//     } as const
-
-// }
 
 
 export type AddCardsType = ReturnType<typeof addCardsAC>
@@ -166,7 +161,7 @@ export const FetchCardsTC = (): AppThunk =>
             const params: PacksParamsType = {
                 page: getState().cardPacks.page,
                 pageCount: getState().cardPacks.pageCount,
-                 // user_id:getState().cardPacks.cardPacks.find(f=>f.user_id)
+                user_id:getState().cardPacks.params.user_id
 
 
             }
@@ -176,7 +171,7 @@ export const FetchCardsTC = (): AppThunk =>
 
                     dispatch(setCardsAC(res.data.cardPacks))
                     dispatch(setPageCountAC(res.data.pageCount))
-                    // dispatch(idFilterPackAC(res.data.cardPacks))
+
                     //dispatch(setPageAC(res.data.page))
                 })
                 .catch((err) => {
