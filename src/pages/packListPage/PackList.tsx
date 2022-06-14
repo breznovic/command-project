@@ -33,9 +33,8 @@ const PackList = () => {
 
     useEffect(() => {
 
-        if (isLoggedIn)
-            dispatch(FetchCardsTC())
-    }, [packPage,userId])
+        dispatch(FetchCardsTC())
+    }, [packPage, userId])
 
     if (!isLoggedIn) {
         return <Navigate to={'/login'}/>

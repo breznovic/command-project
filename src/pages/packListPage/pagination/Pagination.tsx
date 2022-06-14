@@ -16,9 +16,9 @@ const Pagination = ({packPage, pageCount, callback, totalCount}: PaginationType)
         <div>
 
             <div className={style.pageCount}>
-                {currentPage.map((page) => {
+                {currentPage.map((page,index) => {
 
-                    return <span
+                    return <span key={index}
 
                         className={packPage === page ? style.pages : ''}
                         onClick={() => callback(page)}
