@@ -76,7 +76,7 @@ export const cardsReducer = (state: InitialStateType = initialState, action: Gen
             // return {...state, params: state.params, page: action.page}
         }
         case "pack/ID-FILTER-PACK": {
-            return {...state,}
+            return {...state,cardPacks: state.cardPacks.filter(f=>f.user_id!==action.id)}
         }
         case "pack/ADD-CARDS": {
             let pack = {name: action.name}
@@ -161,12 +161,12 @@ export const updatePackAC = (id: string, name: string) => { // обновлен�
 export const FetchCardsTC = (): AppThunk =>
     (dispatch, getState: () => AppStateType) => {
         dispatch(setStatusAppAC(true))
-        let cardsData = getState().cardPacks.params
+        let cardsData = getState().cardPacks
         if (cardsData) {
             const params: PacksParamsType = {
                 page: getState().cardPacks.page,
                 pageCount: getState().cardPacks.pageCount,
-                // user_id:cardsData.user_id
+                 // user_id:getState().cardPacks.cardPacks.find(f=>f.user_id)
 
 
             }
@@ -176,6 +176,7 @@ export const FetchCardsTC = (): AppThunk =>
 
                     dispatch(setCardsAC(res.data.cardPacks))
                     dispatch(setPageCountAC(res.data.pageCount))
+                    // dispatch(idFilterPackAC(res.data.cardPacks))
                     //dispatch(setPageAC(res.data.page))
                 })
                 .catch((err) => {

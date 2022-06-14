@@ -1,11 +1,13 @@
 import React from 'react';
 import style from "../PackList.module.css";
-type PaginationType={
-    packPage:number
-    pageCount:number
-    callback:(page:number)=>void
+
+type PaginationType = {
+    packPage: number
+    pageCount: number
+    callback: (page: number) => void
+    totalCount: number
 }
-const Pagination = ({packPage,pageCount,callback}:PaginationType) => {
+const Pagination = ({packPage, pageCount, callback, totalCount}: PaginationType) => {
     let currentPage = []
     for (let i = 1; i <= pageCount; i++) {
         currentPage.push(i)
@@ -17,10 +19,11 @@ const Pagination = ({packPage,pageCount,callback}:PaginationType) => {
                 {currentPage.map((page) => {
 
                     return <span
+
                         className={packPage === page ? style.pages : ''}
-                        onClick={()=>callback(page)}
+                        onClick={() => callback(page)}
                     >
-{page}
+                            {page}
                 </span>
 
                 })}

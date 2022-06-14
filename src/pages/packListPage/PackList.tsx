@@ -16,6 +16,8 @@ const PackList = () => {
     const cards = useSelector<AppStateType, CardPacksType[]>(state => state.cardPacks.cardPacks)
     const pageCount = useSelector<AppStateType, number>(state => state.cardPacks.pageCount)
     const packPage = useSelector<AppStateType, number>(state => state.cardPacks.page)
+    const totalCount = useSelector<AppStateType, number>(state => state.cardPacks.cardPacksTotalCount)
+
     console.log("pageCount", pageCount)
 
     const setNewPageHandler = (page: number) => {
@@ -65,6 +67,7 @@ const PackList = () => {
             <Pagination packPage={packPage}
                         pageCount={pageCount}
                         callback={(page)=>setNewPageHandler(page)}
+                        totalCount={totalCount}
             />
 
 

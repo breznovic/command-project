@@ -54,6 +54,7 @@ export type AppActionsType = SetLoggedInType
     | IdFilterPackType
     | DeletePackType
     | UpdatePackType
+
 export type AppStateType = ReturnType<typeof rootReducer>
 // export type AppActionsType
 // @ts-ignore
