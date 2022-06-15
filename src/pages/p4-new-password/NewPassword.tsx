@@ -7,8 +7,6 @@ import {useAppDispatch} from "../../reducers/store";
 
 type FormikErrorType = {
     email?: string
-    // password?: string
-    // rememberMe?: boolean
 }
 
 const NewPassword = () => {
