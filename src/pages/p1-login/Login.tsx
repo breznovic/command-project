@@ -2,9 +2,9 @@ import React, {Dispatch} from 'react';
 import {useFormik} from "formik";
 import Button from '../../common/button/Button';
 import Checkbox from "../../common/checkbox/Checkbox";
-import {useDispatch, useSelector} from "react-redux";
-import {LoginTC, SetLoggedInType} from "../../reducers/auth-reducer";
-import {AppStateType, AppThunk, useAppDispatch} from "../../reducers/store";
+import {useSelector} from "react-redux";
+import {LoginTC} from "../../reducers/auth-reducer";
+import {AppStateType, useAppDispatch} from "../../reducers/store";
 
 import {Navigate, NavLink} from "react-router-dom";
 import Input from "../../common/input/Input";
