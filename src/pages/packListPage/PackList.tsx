@@ -18,7 +18,9 @@ const PackList = () => {
     const packPage = useSelector<AppStateType, number>(state => state.cardPacks.page)
     const totalCount = useSelector<AppStateType, number>(state => state.cardPacks.cardPacksTotalCount)
     const userId = useSelector<AppStateType, string>(state => state.cardPacks.params.user_id)
-    console.log("pageCount", pageCount)
+    const sort = useSelector<AppStateType, string>(state => state.cardPacks.params.sortPacks)
+
+    console.log("sort", sort)
 
     const setNewPageHandler = (page: number) => {
         dispatch(setPageAC(page))
@@ -34,7 +36,7 @@ const PackList = () => {
     useEffect(() => {
 
         dispatch(FetchCardsTC())
-    }, [packPage, userId])
+    }, [packPage, userId,sort])
 
     if (!isLoggedIn) {
         return <Navigate to={'/login'}/>
@@ -47,18 +49,19 @@ const PackList = () => {
 
 
             {cards.map(card => {
-                const setChangePageToCard = () => {
+                const setChangePageToCard = (id:string) => {
                     navigate(`${card._id}`)
                 }
 
                 return <div key={card._id} className={style.packList}>
 
-                    <div onClick={setChangePageToCard} style={{width: '250px'}}>{card.name}</div>
+                    <div  style={{width: '250px'}}>{card.name}</div>
                     <div style={{width: '250px'}}>{card.cardsCount}</div>
                     <div style={{width: '250px'}}>{card.updated}</div>
 
                     <Button onClick={() => deletePackHandler(card._id)}>Del</Button>
                     <Button onClick={() => updatePackHandler(card._id)}>Update</Button>
+                    <Button onClick={()=>setChangePageToCard(card._id)}>Cards</Button>
                 </div>
 
             })}

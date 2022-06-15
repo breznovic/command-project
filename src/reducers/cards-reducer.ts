@@ -62,6 +62,7 @@ export type GeneralActionType = SetCardsType
     | IdFilterPackType
     | DeletePackType
     | UpdatePackType
+    | SortingPackType
 
 export const cardsReducer = (state: InitialStateType = initialState, action: GeneralActionType): InitialStateType => {
     switch (action.type) {
@@ -78,7 +79,8 @@ export const cardsReducer = (state: InitialStateType = initialState, action: Gen
         case "pack/ID-FILTER-PACK": {
 
             return {
-               ...state,params:{...state.params,user_id:action.id} }
+                ...state, params: {...state.params, user_id: action.id}
+            }
 
         }
         case "pack/ADD-CARDS": {
@@ -91,6 +93,9 @@ export const cardsReducer = (state: InitialStateType = initialState, action: Gen
         }
         case "pack/UPDATE-PACK": {
             return {...state, cardPacks: state.cardPacks.map(m => m._id === action.id ? {...m, name: action.name} : m)}
+        }
+        case "pack/SORTING-PACK": {
+            return {...state, params: {...state.params, sortPacks: action.sort}}
         }
         default:
             return state
@@ -129,6 +134,13 @@ export const setPageCountAC = (pageCount: number) => { // изменение с�
         pageCount
     } as const
 }
+export type SortingPackType = ReturnType<typeof sortingPackAC>
+export const sortingPackAC = (sort: string) => {
+    return {
+        type: 'pack/SORTING-PACK',
+        sort
+    } as const
+}
 export type IdFilterPackType = ReturnType<typeof idFilterPackAC>
 export const idFilterPackAC = (id: string) => {
     return {
@@ -158,19 +170,23 @@ export const FetchCardsTC = (): AppThunk =>
         dispatch(setStatusAppAC(true))
         let cardsData = getState().cardPacks
         if (cardsData) {
+
             const params: PacksParamsType = {
                 page: getState().cardPacks.page,
                 pageCount: getState().cardPacks.pageCount,
-                user_id:getState().cardPacks.params.user_id
-
+                user_id: getState().cardPacks.params.user_id,
+                sortPacks: getState().cardPacks.params.sortPacks
 
             }
+
             cardsApi.getPacks(params)
                 .then((res) => {
+
                     dispatch(setStatusAppAC(true))
 
                     dispatch(setCardsAC(res.data.cardPacks))
                     dispatch(setPageCountAC(res.data.pageCount))
+
 
                     //dispatch(setPageAC(res.data.page))
                 })
