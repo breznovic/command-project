@@ -7,8 +7,6 @@ import {useAppDispatch} from "../../reducers/store";
 
 type FormikErrorType = {
     email?: string
-    // password?: string
-    // rememberMe?: boolean
 }
 
 const NewPassword = () => {
@@ -17,9 +15,11 @@ const NewPassword = () => {
 
     const formik = useFormik({
         initialValues: {
+
             email: '',
             from: '',
             message: '',
+
         },
         validate: (values) => {
             const errors: FormikErrorType = {};
@@ -39,21 +39,27 @@ const NewPassword = () => {
 
     return <form onSubmit={formik.handleSubmit}>
         <div>
+
             <h2>New Password</h2>
+
+
             <Input placeholder={'email'}
                    // newPassword
                    {...formik.getFieldProps("email")}
+
             />
         </div>
         {formik.touched.email &&
         formik.errors.email &&
         <div style={{color: 'red'}}>{formik.errors.email}</div>}
         <p>Enter your Email.</p>
-           <p> An to your email will be sent letter to reset your password</p>
+           <p> On your email will be sent letter to reset your password</p>
         <Button>
             Send Letter
         </Button>
+
     </form>
-}
+
+};
 
 export default NewPassword;

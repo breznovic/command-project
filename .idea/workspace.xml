@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="900de80f-e435-408e-aa51-f98009ee7f9f" name="Changes" comment="New Password and invalid restore 2" />
+    <list default="true" id="900de80f-e435-408e-aa51-f98009ee7f9f" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/src/API/user-api.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/API/user-api.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/p1-login/Login.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/p1-login/Login.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/p4-new-password/NewPassword.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/p4-new-password/NewPassword.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/p5-reset/RestorePassword.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/p5-reset/RestorePassword.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/reducers/auth-reducer.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/reducers/auth-reducer.ts" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />

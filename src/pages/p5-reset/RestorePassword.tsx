@@ -1,12 +1,9 @@
 import React from 'react';
 import {useFormik} from "formik";
-import {LoginTC, ResetPasswordTC, SetNewPasswordTC} from "../../reducers/auth-reducer";
-import {Navigate} from "react-router-dom";
+import {SetNewPasswordTC} from "../../reducers/auth-reducer";
 import Input from "../../common/input/Input";
-import Checkbox from "../../common/checkbox/Checkbox";
 import Button from "../../common/button/Button";
 import {useAppDispatch} from "../../reducers/store";
-import {useParams} from "react-router-dom"
 
 type FormikErrorType = {
     email?: string

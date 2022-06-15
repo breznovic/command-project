@@ -58,8 +58,6 @@ const Login = () => {
             <Input
                 placeholder={'email'}
                 {...formik.getFieldProps("email")}
-
-
             />
         </div>
         <div>

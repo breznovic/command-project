@@ -22,12 +22,9 @@ export const authApi = {
         return instance.post<ResponseDeleteType>('auth/forgot', data)
     },
     newPassword(data: NewPasswordType) {
-        return instance.post<ResponseDeleteType>('auth/set-new-password', data)
+        return instance.post<NewPasswordType>('auth/set-new-password', data)
     },
-
-
 }
-
 
 export type UpdateMeType = {
     name: string
@@ -48,9 +45,9 @@ export type NewPasswordType = {
     resetPasswordToken: string
 }
 
+
 export type ResponseDeleteType = {
     info: string
-
     error: string;
 }
 export type RegisterResponseType = {

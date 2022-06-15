@@ -259,12 +259,14 @@ export const SetNewPasswordTC = (data: NewPasswordType): AppThunk => (dispatch) 
     dispatch(setStatusAppAC(true))
     authApi.newPassword(data)
         .then((res) => {
-            // dispatch(forgotPasswordAC(res.data))
+
         })
         .catch(() => {
 
         })
         .finally(() => {
-            dispatch(setStatusAppAC(false))
+
         })
 }
+
+
