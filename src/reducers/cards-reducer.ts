@@ -3,6 +3,7 @@ import {AppStateType, AppThunk} from "./store";
 import {setStatusAppAC} from "./app-reducer";
 import {handleServerError} from "../error-utils/error";
 //'6294929e49512003102e64c2' id Maslo
+type FilterPacksType="all"|"my"
 const initialState = {
     cardPacks: [{
         _id: '',
@@ -26,7 +27,8 @@ const initialState = {
         user_id: '',
         sortPacks: '',
         pageCount: 10
-    }
+    },
+    // filterPacks:'all'
 }
 export type InitialStateType = {
     cardPacks: CardPacksType[]
@@ -42,6 +44,7 @@ export type InitialStateType = {
         sortPacks: string
         pageCount: number
     }
+    // filterPacks:FilterPacksType
 }
 
 
@@ -57,7 +60,8 @@ export type GeneralActionType = SetCardsType
     | AddCardsType
     | SetCardsDataType
     | SetPageType
-    | SetPageCount
+    | SetPageCountType
+    | IdFilterPackType
 
 export const cardsReducer = (state: InitialStateType = initialState, action: GeneralActionType): InitialStateType => {
     switch (action.type) {
@@ -70,10 +74,13 @@ export const cardsReducer = (state: InitialStateType = initialState, action: Gen
         case "pack/SET-PAGE": {
             return {...state, params: state.params, page: action.page}
         }
-        // case "pack/ADD-CARDS":{
-        //     let pack = {name: action.name}
-        //     return{...state,cardPacks:{...state.cardPacks,...pack}}
-        // }
+        case "pack/ID-FILTER-PACK":{
+            return {...state,}
+        }
+        case "pack/ADD-CARDS":{
+            let pack = {name: action.name}
+            return{...state,cardPacks:{...state.cardPacks,...pack}}
+        }
         default:
             return state
     }
@@ -113,11 +120,18 @@ export const setPageAC = (page: number) => { // изменение страни�
         page
     } as const
 }
-export type SetPageCount = ReturnType<typeof setPageCountAC>
+export type SetPageCountType = ReturnType<typeof setPageCountAC>
 export const setPageCountAC = (pageCount: number) => { // изменение страницы
     return {
         type: 'pack/SET-PAGE-COUNT',
         pageCount
+    } as const
+}
+export type IdFilterPackType = ReturnType<typeof idFilterPackAC>
+export const idFilterPackAC = (id: string) => { // изменение страницы
+    return {
+        type: 'pack/ID-FILTER-PACK',
+        id
     } as const
 }
 
@@ -129,7 +143,9 @@ export const FetchCardsTC = (): AppThunk =>
         if (cardsData) {
             const params: PacksParamsType = {
                 page: cardsData.page,
-                pageCount: cardsData.pageCount
+                pageCount: cardsData.pageCount,
+                user_id: cardsData.user_id
+
             }
             cardsApi.getPacks(params)
                 .then((res) => {
@@ -149,20 +165,20 @@ export const FetchCardsTC = (): AppThunk =>
 
 
 export const CreateCardsTC = (): AppThunk =>
-    (dispatch,getState:()=>AppStateType) => {
+    (dispatch, getState: () => AppStateType) => {
         dispatch(setStatusAppAC(true))
+        const name = "HEllO,I am Dima Maslo"
+        cardsApi.packCreate(name)
+            .then((res) => {
 
-            cardsApi.packCreate()
-                .then((res) => {
+                dispatch(FetchCardsTC())
+            })
+            .catch(() => {
 
-                     dispatch(FetchCardsTC())
-                })
-                .catch(() => {
-
-                })
-                .finally(() => {
-                    dispatch(setStatusAppAC(false))
-                })
+            })
+            .finally(() => {
+                dispatch(setStatusAppAC(false))
+            })
 
     }
 

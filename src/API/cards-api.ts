@@ -5,8 +5,8 @@ export const cardsApi = {
     getPacks(params:PacksParamsType) {
         return instance.get<ResponsePackType>("/cards/pack", {params})
     },
-    packCreate(){
-        return instance.post<ResponsePackType>('cards/pack',)
+    packCreate(name:string){
+        return instance.post<ResponsePackType>('cards/pack',{cardsPack:{name}})
     }
 }
 
@@ -26,7 +26,7 @@ export type PacksParamsType = {
     min?: number // не обязательно
     max?: number // не обязательно
     sortPacks?: number// не обязательно
-    page?: number // не обязательно
+    page: number // не обязательно
     pageCount?: number // не обязательно
 
 
