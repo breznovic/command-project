@@ -2,6 +2,8 @@
     height: 60px;
     display: flex;
     align-items: center;
+    justify-content: flex-start;
+    flex-direction: row;
     width: 100%;
     background-color: #24ff48;
 }

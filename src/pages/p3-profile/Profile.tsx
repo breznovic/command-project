@@ -33,7 +33,6 @@ const Profile = () => {
         },
     })
 
-
     if (!isLoggedIn) {
         return <Navigate to={'/login'}/>
     }

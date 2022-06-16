@@ -4,7 +4,7 @@ import {SetNewPasswordTC} from "../../reducers/auth-reducer";
 import Input from "../../common/input/Input";
 import Button from "../../common/button/Button";
 import {useAppDispatch} from "../../reducers/store";
-import {useParams} from "react-router-dom";
+import {Navigate, useParams} from "react-router-dom";
 
 type FormikErrorType = {
     password?: string
