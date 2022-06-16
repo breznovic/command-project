@@ -18,8 +18,8 @@ const ResetPassword = () => {
 
             email: '',
             from: '',
-            message: '',
-
+            message: `<div style="background-color: lime; padding: 15px">password recovery link: 
+<a href='http://localhost:3000/#/set-new-password/$token$'>link</a></div>`,
         },
         validate: (values) => {
             const errors: FormikErrorType = {};
@@ -44,16 +44,16 @@ const ResetPassword = () => {
 
 
             <Input placeholder={'email'}
-                   // newPassword
+                // newPassword
                    {...formik.getFieldProps("email")}
 
             />
         </div>
         {formik.touched.email &&
-        formik.errors.email &&
-        <div style={{color: 'red'}}>{formik.errors.email}</div>}
+            formik.errors.email &&
+            <div style={{color: 'red'}}>{formik.errors.email}</div>}
         <p>Enter your Email.</p>
-           <p> On your email will be sent letter to reset your password</p>
+        <p> On your email will be sent letter to reset your password</p>
         <Button>
             Send Letter
         </Button>
