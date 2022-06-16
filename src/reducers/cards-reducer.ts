@@ -100,8 +100,8 @@ export const cardsReducer = (state: InitialStateType = initialState, action: Gen
         case "pack/SORTING-PACK": {
             return {...state, params: {...state.params, sortPacks: action.sort}}
         }
-        case "pack/SEARCH-BY-NAME":{
-            return {...state,params:{...state.params,packName:action.packName}}
+        case "pack/SEARCH-BY-NAME": {
+            return {...state, params: {...state.params, packName: action.packName}}
         }
 
         default:
@@ -197,7 +197,6 @@ export const FetchCardsTC = (): AppThunk =>
                 .then((res) => {
 
                     dispatch(setStatusAppAC(true))
-
                     dispatch(setCardsAC(res.data.cardPacks))
                     dispatch(setPageCountAC(res.data.pageCount))
 

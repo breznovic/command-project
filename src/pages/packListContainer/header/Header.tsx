@@ -6,6 +6,7 @@ import {sortingPackAC} from "../../../reducers/cards-reducer";
 import FilterForId from "../../packListPage/filterForId/FilterForId";
 import SearchPacks from "../../packListPage/searchPacks/SearchPacks";
 
+
 const HeaderPack = () => {
     const dispatch = useAppDispatch()
 
@@ -13,6 +14,7 @@ const HeaderPack = () => {
     const sortHandler = (value: string) => {
 
         dispatch(sortingPackAC(value))
+
     }
 
     return (
