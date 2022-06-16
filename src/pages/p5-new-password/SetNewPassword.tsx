@@ -9,7 +9,7 @@ type FormikErrorType = {
     email?: string
 }
 
-const RestorePassword = () => {
+const SetNewPassword = () => {
 
     const dispatch = useAppDispatch()
 
@@ -38,7 +38,7 @@ const RestorePassword = () => {
     return <form onSubmit={formik.handleSubmit}>
         <div>
 
-            <h2>Restore your password</h2>
+            <h2>Set new password</h2>
             <Input placeholder={'Enter your Email'}
                 // newPassword
                    {...formik.getFieldProps("email")}
@@ -56,4 +56,4 @@ const RestorePassword = () => {
     </form>
 };
 
-export default RestorePassword;
+export default SetNewPassword;

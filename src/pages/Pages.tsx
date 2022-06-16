@@ -4,8 +4,8 @@ import Test from "./p7-test/Test";
 import Profile from "./p3-profile/Profile";
 import Login from "./p1-login/Login";
 import Signup from "./p2-signup/Signup";
-import NewPassword from "./p4-new-password/NewPassword";
-import RestorePassword from "./p5-reset/RestorePassword";
+import ResetPassword from "./p4-reset-password/ResetPassword";
+import SetNewPassword from "./p5-new-password/SetNewPassword";
 import Error404 from "./p6-error/404";
 import s from './Pages.module.css'
 import CircularProgress from "@mui/material/CircularProgress";
@@ -35,9 +35,9 @@ const Pages = () => {
                 <Route path={PATH.login} element={<Login/>}/>
                 <Route path={PATH.signup} element={<Signup/>}/>
                 <Route path={PATH.profile} element={<Profile/>}/>
-                <Route path={PATH.newPassword} element={<NewPassword/>}/>
+                <Route path={PATH.newPassword} element={<ResetPassword/>}/>
                 <Route path={PATH.packList} element={<PackListContainer/>}/>
-                <Route path={PATH.restorePassword} element={<RestorePassword/>}/>
+                <Route path={PATH.restorePassword} element={<SetNewPassword/>}/>
                 <Route path={PATH.error} element={<Error404/>}/>
                 <Route path={PATH.test} element={<Test/>}/>
                 <Route path={'*'} element={<Error404/>}/>

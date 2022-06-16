@@ -2,11 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="900de80f-e435-408e-aa51-f98009ee7f9f" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/src/API/user-api.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/API/user-api.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/p1-login/Login.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/p1-login/Login.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/p4-new-password/NewPassword.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/p4-new-password/NewPassword.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/p5-reset/RestorePassword.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/p5-reset/RestorePassword.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/reducers/auth-reducer.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/reducers/auth-reducer.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/header/Header.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/header/Header.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/Pages.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Pages.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/p4-new-password/NewPassword.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/p4-reset-password/ResetPassword.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/p5-reset/RestorePassword.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/p5-new-password/SetNewPassword.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -19,7 +18,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="EvgenBranch" />
+        <entry key="$PROJECT_DIR$" value="ce45f6227418778b3a5bc669cd595eb0ff6aa144" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
