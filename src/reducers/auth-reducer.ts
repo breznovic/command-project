@@ -224,8 +224,6 @@ export const InitializeTC = (): AppThunk => (dispatch) => {
             dispatch(setInitializeAC(true))
             dispatch(setStatusAppAC(false))
         })
-
-
 }
 
 
