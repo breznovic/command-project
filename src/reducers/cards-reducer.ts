@@ -24,7 +24,8 @@ const initialState = {
         page: 1,
         user_id: '',
         sortPacks: '',
-        pageCount: 1
+        pageCount: 1,
+        packName: ''
     },
     // filterPacks:'all'
 }
@@ -41,6 +42,7 @@ export type InitialStateType = {
         user_id: string
         sortPacks: string
         pageCount: number
+        packName: string
     }
     // filterPacks:FilterPacksType
 }
@@ -63,6 +65,7 @@ export type GeneralActionType = SetCardsType
     | DeletePackType
     | UpdatePackType
     | SortingPackType
+    | SearchByNameType
 
 export const cardsReducer = (state: InitialStateType = initialState, action: GeneralActionType): InitialStateType => {
     switch (action.type) {
@@ -97,6 +100,10 @@ export const cardsReducer = (state: InitialStateType = initialState, action: Gen
         case "pack/SORTING-PACK": {
             return {...state, params: {...state.params, sortPacks: action.sort}}
         }
+        case "pack/SEARCH-BY-NAME":{
+            return {...state,params:{...state.params,packName:action.packName}}
+        }
+
         default:
             return state
     }
@@ -163,6 +170,13 @@ export const updatePackAC = (id: string, name: string) => { // обновлен�
         name
     } as const
 }
+export type SearchByNameType = ReturnType<typeof searchByNameAC>
+export const searchByNameAC = (packName: string) => { // обновление пака
+    return {
+        type: 'pack/SEARCH-BY-NAME',
+        packName
+    } as const
+}
 
 
 export const FetchCardsTC = (): AppThunk =>
@@ -175,8 +189,8 @@ export const FetchCardsTC = (): AppThunk =>
                 page: getState().cardPacks.page,
                 pageCount: getState().cardPacks.pageCount,
                 user_id: getState().cardPacks.params.user_id,
-                sortPacks: getState().cardPacks.params.sortPacks
-
+                sortPacks: getState().cardPacks.params.sortPacks,
+                packName: getState().cardPacks.params.packName
             }
 
             cardsApi.getPacks(params)

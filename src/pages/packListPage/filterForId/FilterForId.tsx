@@ -2,7 +2,7 @@ import React from 'react';
 
 import { AppStateType, useAppDispatch} from "../../../reducers/store";
 import {useSelector} from "react-redux";
-import {FetchCardsTC, idFilterPackAC} from "../../../reducers/cards-reducer";
+import { idFilterPackAC} from "../../../reducers/cards-reducer";
 
 
 const FilterForId = () => {

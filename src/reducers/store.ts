@@ -13,7 +13,7 @@ import {appReducer, SetErrorAppType, SetStatusAppType} from "./app-reducer";
 import {
     AddCardsType,
     cardsReducer, DeletePackType,
-    IdFilterPackType,
+    IdFilterPackType, SearchByNameType,
 
     SetCardsType,
     SetPageCountType,
@@ -54,6 +54,7 @@ export type AppActionsType = SetLoggedInType
     | DeletePackType
     | UpdatePackType
     | SortingPackType
+    | SearchByNameType
 export type AppStateType = ReturnType<typeof rootReducer>
 // export type AppActionsType
 // @ts-ignore

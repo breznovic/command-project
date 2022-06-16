@@ -6,7 +6,7 @@ import Input from "../../common/input/Input";
 import Button from "../../common/button/Button";
 import {AppStateType, useAppDispatch} from "../../reducers/store";
 import {Navigate} from "react-router-dom";
-
+import style from "./Profile.module.css"
 
 const Profile = () => {
     const dispatch = useAppDispatch()
@@ -42,7 +42,7 @@ const ava=useSelector<AppStateType, string|undefined>(state => state.auth.profil
 
         <div>
             <h2>My Profile</h2>
-<div>
+<div className={style.avatar}>
            <img src={"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSoKS48ilmDRBg8dQUfQLAuHJolMtiVxpnzVT8tRbTxdUuSQDmVMr5NRrn_pV0kgyqr7cU&usqp=CAU"}/>
 </div>
             <Input placeholder={'Nickname'}
