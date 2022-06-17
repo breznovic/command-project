@@ -2,15 +2,21 @@ import {instance} from "./instance";
 
 
 export const cardsApi = {
-    getPacks(params:PacksParamsType) {
+    getPacks(params: PacksParamsType) {
         return instance.get<ResponsePackType>("/cards/pack", {params})
     },
-    packCreate(name:string){
-        return instance.post<ResponsePackType>('cards/pack',{cardsPack:{name}})
+    packCreate(name: string) {
+        return instance.post<ResponsePackType>('cards/pack', {cardsPack: {name}})
+    },
+    deletePack(id: string) {
+        return instance.delete<ResponsePackType>("cards/pack", {params:{id}})
+    },
+    updatePack(_id:string,name:string){
+        return instance.put<ResponsePackType>("cards/pack",{cardsPack:{_id,name}})
     }
 }
 
-export type CreatePackParams={
+export type CreatePackParams = {
     cardsPack: {
         name: string
         deckCover?: string
@@ -19,18 +25,16 @@ export type CreatePackParams={
 }
 
 
-
-
 export type PacksParamsType = {
     packName?: string// не обязательно
     min?: number // не обязательно
     max?: number // не обязательно
-    sortPacks?: number// не обязательно
+    sortPacks: string// не обязательно
     page: number // не обязательно
-    pageCount?: number // не обязательно
+    pageCount: number // не обязательно
 
 
-    user_id?: string
+    user_id: string
 }
 export type CardPacksType = {
     _id: string

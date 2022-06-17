@@ -6,7 +6,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {InitializeTC} from "./reducers/auth-reducer";
 import CircularProgress from '@mui/material/CircularProgress'
 import {AppStateType} from "./reducers/store";
-import {ErrorSnackbar} from "./common/error-snackbar/error-snackbar";
+import {ErrorSnackbar} from "./pages/ErrorSnackBar/errorSnackBar";
 
 
 function App() {

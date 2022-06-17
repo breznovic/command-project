@@ -18,8 +18,8 @@ const CardsList = () => {
 
     useEffect(() => {
 
-        if (pack_id){
-            dispatch(setPackAC(pack_id)as any)
+        if (pack_id) {
+            dispatch(setPackAC(pack_id) as any)
         }
         dispatch(setCardsTC())
     }, [pack_id])
@@ -57,6 +57,7 @@ const CardsList = () => {
 {page}
                 </span>
                 })}
+
             </div>
         </div>
     );

@@ -1,12 +1,23 @@
 import React from 'react';
-import Checkbox from "../../../common/checkbox/Checkbox";
+
+import { AppStateType, useAppDispatch} from "../../../reducers/store";
+import {useSelector} from "react-redux";
+import { idFilterPackAC} from "../../../reducers/cards-reducer";
+
 
 const FilterForId = () => {
+    const dispatch = useAppDispatch()
+    const userId=useSelector<AppStateType, string>(state => state.auth.profile._id)
+
+    const filterHandler = (value: string) => {
+        dispatch(idFilterPackAC(value))
+    }
+
+
     return (
         <p>
-            <button>My</button>
-            <button>All</button>
-
+            <button onClick={() => filterHandler(userId)}>My</button>
+            <button onClick={() => filterHandler('')}>All</button>
         </p>
     );
 };

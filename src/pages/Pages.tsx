@@ -27,7 +27,7 @@ const Pages = () => {
         <div className={s.pagesContainer}>
 
             <Routes>
-                <Route path={'/'} element={<Test/>}/>
+                <Route path={'/'} element={<Profile/>}/>
                 <Route path={PATH.login} element={<Login/>}/>
                 <Route path={PATH.signup} element={<Signup/>}/>
                 <Route path={PATH.profile} element={<Profile/>}/>

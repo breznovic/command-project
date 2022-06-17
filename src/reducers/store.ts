@@ -12,12 +12,12 @@ import {useDispatch} from "react-redux";
 import {appReducer, SetErrorAppType, SetStatusAppType} from "./app-reducer";
 import {
     AddCardsType,
-    cardsReducer,
-    IdFilterPackType,
-    SetCardsDataType,
+    cardsReducer, DeletePackType,
+    IdFilterPackType, SearchByNameType,
+
     SetCardsType,
     SetPageCountType,
-    SetPageType
+    SetPageType, SortingPackType, UpdatePackType
 } from "./cards-reducer";
 
 import {packCardsReducer} from "./packCards-reducer";
@@ -49,10 +49,13 @@ export type AppActionsType = SetLoggedInType
     | ForgotPasswordType
     | SetCardsType
     | AddCardsType
-    | SetCardsDataType
     | SetPageType
     | SetPageCountType
     | IdFilterPackType
+    | DeletePackType
+    | UpdatePackType
+    | SortingPackType
+    | SearchByNameType
 export type AppStateType = ReturnType<typeof rootReducer>
 // export type AppActionsType
 // @ts-ignore

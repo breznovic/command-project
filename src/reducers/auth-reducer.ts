@@ -28,23 +28,7 @@ const initialState = {
     isRegisterIn: false,
     isInitializeIn: false,
     sendSuccess: false,
-    profile: {
-        _id: "",
-        email: "",
-        name: "",
-        avatar: '',
-        publicCardPacksCount: 0,
-// количество колод
-
-        created: new Date(),
-        updated: new Date(),
-        isAdmin: false,
-        verified: false, // подтвердил ли почту
-        rememberMe: false,
-
-        error: ''
-
-    }
+    profile: {} as ProfileType
 }
 type InitialStateType = {
     isLoggedIn: boolean,
@@ -215,6 +199,7 @@ export const InitializeTC = (): AppThunk => (dispatch) => {
         .then((res) => {
             dispatch(setLoggedInAC(true))
             dispatch(setStatusAppAC(true))
+            dispatch(setLoginDataAC(res.data))
             // handleServerError(res.data.error,dispatch)
         })
         .catch(err => {
